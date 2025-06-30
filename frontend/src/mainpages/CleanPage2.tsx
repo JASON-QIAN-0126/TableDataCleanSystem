@@ -17,7 +17,6 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId }) => {
     const [filteredData, setFilteredData] = useState<RowData[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [showPage3, setShowPage3] = useState(false);
-    const [processingStatus, setProcessingStatus] = useState<string>('processing');
 
     useEffect(() => {
         if (!taskId) return;
@@ -34,7 +33,6 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId }) => {
                 if (response.status === 202) {
                     // Still processing
                     console.log("Still processing...");
-                    setProcessingStatus('processing');
                     setTimeout(checkProcessingStatus, 2000);
                     return;
                 } else if (response.status === 200) {
@@ -42,17 +40,14 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId }) => {
                     const blob = await response.blob();
                     const arrayBuffer = await blob.arrayBuffer();
                     worker.postMessage(arrayBuffer);
-                    setProcessingStatus('done');
                 } else {
                     console.error("Unexpected response status:", response.status);
                     const errorText = await response.text();
                     console.error("Error response:", errorText);
-                    setProcessingStatus('error');
                     setIsLoading(false);
                 }
             } catch (error) {
                 console.error("Error checking processing status:", error);
-                setProcessingStatus('error');
                 setIsLoading(false);
             }
         };
