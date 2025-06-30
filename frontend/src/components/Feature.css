@@ -1,0 +1,45 @@
+.feature-block {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.05); 
+  border-radius: 20px;
+  padding: 24px 32px;
+  margin-bottom: 32px;
+  box-shadow: 0 0 12px rgba(128, 90, 213, 0.4);
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease;
+  min-width: 200px;
+  min-height: 60px;
+  gap: 10px;
+}
+
+.feature-icon {
+  width: 68px;
+  height: 68px;
+  object-fit: contain;
+  flex-shrink: 0;
+  filter: brightness(10) grayscale(1);
+}
+
+.feature-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-title {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.feature-subtitle {
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 1.2rem;
+  color: #fff;
+  font-weight: 400;
+  line-height: 1.1;
+} 

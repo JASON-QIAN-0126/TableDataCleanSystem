@@ -1,0 +1,39 @@
+.title-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 40px;
+  margin-top: 0;
+}
+
+.main-title {
+  font-size: 50px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1.0rem;
+  color: #fff;
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.split-parent {
+  margin: 0;
+  padding: 0;
+}
+
+@media (max-width: 768px) {
+  .main-title {
+    font-size: 2rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+  }
+} 

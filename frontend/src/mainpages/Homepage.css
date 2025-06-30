@@ -1,0 +1,66 @@
+.homepage-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  padding-top: 80px;
+  background-image: url('/src/assets/Background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.homepage-main {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  max-width: 2000px;
+  z-index: 2;
+  color: #fff;
+}
+
+.left-panel {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.start-clean-btn {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  background: transparent;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  z-index: 2;
+  outline: none;
+  box-shadow: none;
+  transition: color 0.2s;
+  display: block;
+}
+
+.start-clean-btn:focus {
+  outline: none;
+}
+
+.fade-inh {
+  animation: fadeIn 1s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes fadeInh {
+  from { opacity: 0; transform: translateX(24px);}
+  to   { opacity: 1; transform: none;}
+}
+ 

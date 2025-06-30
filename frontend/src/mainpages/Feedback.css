@@ -1,0 +1,37 @@
+@import url('./Support.css');
+
+.feel-group {
+  align-items: center;
+}
+
+.feel-options {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.feel-options input[type="radio"] {
+  display: none;
+}
+
+.feel-label {
+  font-size: 24px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.feel-options input[type="radio"]:checked + .feel-label {
+  border-color: #3D3BFF;
+  background-color: #2a2842;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(24px);}
+  to   { opacity: 1; transform: none;}
+} 
