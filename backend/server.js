@@ -10,7 +10,9 @@ const corsOptions = {
   origin: process.env.NODE_ENV === 'production' 
     ? [
         process.env.FRONTEND_PRODUCTION_URL || 'https://data-clean-frontend.vercel.app',
-        'https://data-clean-frontend.vercel.app'
+        'https://data-clean-frontend.vercel.app',
+        'https://www.jasonq.fun',
+        'https://jasonq.fun'
       ]
     : [
         process.env.FRONTEND_URL || 'http://localhost:5173',

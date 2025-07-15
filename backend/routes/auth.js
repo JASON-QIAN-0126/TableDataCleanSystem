@@ -76,14 +76,12 @@ router.post('/register', [
             res.status(201).json({
               success: true,
               message: 'User created successfully',
-              data: {
-                token,
-                user: {
-                  id: this.lastID,
-                  username,
-                  email,
-                  avatar: 'default-avatar.png'
-                }
+              token,
+              user: {
+                id: this.lastID,
+                username,
+                email,
+                avatar: 'default-avatar.png'
               }
             });
           }
@@ -158,14 +156,12 @@ router.post('/login', [
         res.json({
           success: true,
           message: 'Login successful',
-          data: {
-            token,
-            user: {
-              id: user.id,
-              username: user.username,
-              email: user.email,
-              avatar: user.avatar
-            }
+          token,
+          user: {
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            avatar: user.avatar
           }
         });
       } catch (compareError) {
@@ -205,7 +201,7 @@ router.get('/me', authenticateToken, (req, res) => {
     
     res.json({
       success: true,
-      data: { user }
+      user
     });
   });
 });
