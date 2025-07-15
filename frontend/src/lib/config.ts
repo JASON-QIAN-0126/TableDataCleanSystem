@@ -1,6 +1,9 @@
 // API配置
 // 开发环境使用localhost，生产环境需要在Vercel中设置VITE_API_URL环境变量
-export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+export const API_BASE_URL = import.meta.env.VITE_API_URL || 
+  (import.meta.env.MODE === 'production' 
+    ? 'https://data-clean-backend.vercel.app' 
+    : 'http://localhost:8000');
 
 // 应用配置
 export const APP_CONFIG = {
