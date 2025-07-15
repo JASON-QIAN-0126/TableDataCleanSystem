@@ -94,7 +94,7 @@ const SignIn: React.FC<SignInProps> = ({ light, onClose, onSwitchToSignUp, onSig
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`form-input ${light ? "light" : ""}`}
-              placeholder="Enter your email"
+              placeholder="Enter your registered email"
               required
             />
           </div>

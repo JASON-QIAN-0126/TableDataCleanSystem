@@ -20,6 +20,10 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const validatePassword = (password: string) => {
+    return password.length >= 6 && /[a-zA-Z]/.test(password) && /\d/.test(password);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -27,6 +31,12 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
 
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError("Password must be at least 6 characters and contain both letters and numbers");
       setIsLoading(false);
       return;
     }
@@ -102,7 +112,7 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className={`form-input ${light ? "light" : ""}`}
-              placeholder="Enter your username"
+              placeholder="3-20 letters or numbers"
               required
               minLength={3}
             />
@@ -115,7 +125,7 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className={`form-input ${light ? "light" : ""}`}
-              placeholder="Enter your email"
+              placeholder="Enter a valid email address"
               required
             />
           </div>
@@ -127,9 +137,8 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`form-input ${light ? "light" : ""}`}
-              placeholder="Enter your password"
+              placeholder="must contain 6 characters and numbers"
               required
-              minLength={6}
             />
           </div>
 

@@ -193,5 +193,6 @@
 }
 
 .error-text {
+  color: #ffffff;
   flex: 1;
 } 
