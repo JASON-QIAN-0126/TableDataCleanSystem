@@ -22,14 +22,14 @@
 }
 
 @media (max-height: 1079px) {
-  .logo-container  {
+  .logo-container {
     top: -17px;
     left: 10px;
   }
 }
 
 @media (max-height: 899px) {
-  .logo-container  {
+  .logo-container {
     top: -10px;
     left: 10px;
   }

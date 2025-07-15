@@ -2,12 +2,13 @@ import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
-import './Title.css';
+import "./Title.css";
 
 gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
 
 export interface SplitTextProps {
   text: string;
+  htmlText?: string;
   className?: string;
   delay?: number;
   duration?: number;
@@ -23,6 +24,7 @@ export interface SplitTextProps {
 
 const SplitText: React.FC<SplitTextProps> = ({
   text,
+  htmlText,
   className = "",
   delay = 100,
   duration = 0.6,
@@ -41,6 +43,10 @@ const SplitText: React.FC<SplitTextProps> = ({
   useEffect(() => {
     const el = ref.current;
     if (!el || animationCompletedRef.current) return;
+
+    if (htmlText) {
+      el.innerHTML = htmlText;
+    }
 
     const absoluteLines = splitType === "lines";
     if (absoluteLines) el.style.position = "relative";
@@ -135,25 +141,26 @@ const SplitText: React.FC<SplitTextProps> = ({
         wordWrap: "break-word",
       }}
     >
-      {text}
+      {!htmlText && text}
     </p>
   );
 };
 
-const Title: React.FC = () => {
+const Title: React.FC<{ light?: boolean }> = ({ light }) => {
   const handleMainTitleComplete = () => {
-    console.log("Main animation complete");
+    console.log("Main title animation completed");
   };
 
   const handleSubtitleComplete = () => {
-    console.log("Subtitle animation complete");
+    console.log("Subtitle animation completed");
   };
 
   return (
-    <div className="title-container">
+    <div className={light ? "title-container title-light" : "title-container"}>
       <SplitText
-        text="Welcome to Clean World!"
-        className="main-title"
+        text="Welcome to Clean World"
+        htmlText='Welcome to <span class="highlight">Clean</span> <span class="highlight">World</span>'
+        className={light ? "main-title main-title-light" : "main-title"}
         delay={50}
         duration={0.3}
         ease="power3.out"
@@ -167,7 +174,8 @@ const Title: React.FC = () => {
       />
       <SplitText
         text="From chaos to clarity — a system organize your tables in seconds."
-        className="subtitle"
+        htmlText='From chaos to <span class="highlight">clarity</span> — a system organize your <span class="highlight">tables</span> in seconds.'
+        className={light ? "subtitle subtitle-light" : "subtitle"}
         delay={50}
         duration={0.3}
         ease="power3.out"
@@ -183,4 +191,4 @@ const Title: React.FC = () => {
   );
 };
 
-export default Title; 
+export default Title;

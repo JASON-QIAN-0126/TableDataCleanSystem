@@ -1,6 +1,11 @@
-@import url('./Support.css');
+@import url("./Support.css");
 
 .feel-group {
+  align-items: center;
+}
+
+/* Light mode feel group */
+.feel-group.light {
   align-items: center;
 }
 
@@ -23,15 +28,32 @@
   transition: all 0.2s;
 }
 
+/* Light mode feel label */
+.feel-label.light {
+  color: #333;
+}
+
 .feel-options input[type="radio"]:checked + .feel-label {
-  border-color: #3D3BFF;
+  border-color: #3d3bff;
   background-color: #2a2842;
 }
 
+/* Light mode selected feel label */
+.feel-options.light input[type="radio"]:checked + .feel-label {
+  border-color: #6c757d;
+  background-color: rgba(108, 117, 125, 0.2);
+}
+
 .fade-in {
-  animation: fadeIn 0.5s cubic-bezier(0.4,0,0.2,1);
+  animation: fadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(24px);}
-  to   { opacity: 1; transform: none;}
-} 
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

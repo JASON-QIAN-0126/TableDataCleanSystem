@@ -1,65 +1,104 @@
 .clean-page2-container {
-    padding: 20px;
-    background-color: #1A182E;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  padding: 20px;
+  background-color: #1a182e;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .clean-page2-card {
-    width: 100%;
-    max-width: 1200px;
-    height: 70vh;
-    max-height: 650px;
-    background-color: #1A182E;
-    border-radius: 24px;
-    padding: 24px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #E0E0E0;
+  width: 100%;
+  max-width: 1200px;
+  height: 70vh;
+  max-height: 1650px;
+  background-color: #1a182e;
+  border-radius: 24px;
+  padding: 24px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+/* Light mode clean page2 card */
+.clean-page2-card.light {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #333;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
 }
 
 .search-bar-container {
-    height: 30px;
-    width: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 10px;
+  height: 30px;
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
 }
 
 .search-input {
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #3A3A3C;
-    border-radius: 25px;
-    font-size: 16px;
-    background-color: #2C2C2E;
-    box-shadow: none;
-    color: #FFFFFF;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #3a3a3c;
+  border-radius: 25px;
+  font-size: 16px;
+  background-color: #2c2c2e;
+  box-shadow: none;
+  color: #ffffff;
+}
+
+/* Light mode search input */
+.search-input.light {
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.8);
+  color: #333;
+  box-shadow: 0 2px 8px rgba(200, 180, 255, 0.04);
 }
 
 .search-input::placeholder {
-  color: #8A8A8E;
+  color: #8a8a8e;
+}
+
+.search-input.light::placeholder {
+  color: #999;
 }
 
 .search-button {
-    padding: 6px 30px;
-    border: none;
-    border-radius: 25px;
-    background-color: #007AFF;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  padding: 3px 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #007aff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .search-button:hover {
-    background: #3d3bff;
-    color: #fff;
-    box-shadow: 0 2px 12px rgba(61,59,255,0.12);
+  background: #3d3bff;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(61, 59, 255, 0.12);
+}
+
+/* Light mode search button */
+.search-button.light {
+  background: #0c0c0c;
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+  border: none;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.search-button.light:hover {
+  background: #4b4b4b;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
 }
 
 .table-container {
@@ -67,10 +106,17 @@
   max-width: 98vw;
   margin: 0 auto 12px auto;
   padding: 0 8px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(255, 255, 255, 0.04);
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   overflow-x: auto;
+}
+
+/* Light mode table container */
+.table-container.light {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 }
 
 .data-table {
@@ -80,135 +126,190 @@
   background: transparent;
 }
 
-.data-table th, .data-table td {
+.data-table th,
+.data-table td {
   padding: 10px 16px;
 }
 
 th {
-    background-color: #2C2C2E;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-    font-weight: 600;
-    color: #FFFFFF;
+  background-color: #2c2c2e;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+/* Light mode table header */
+th.light {
+  background: #e9ecef;
+  color: #333;
 }
 
 tbody tr:hover {
-    background-color: #211F35;
+  background-color: #211f35;
+}
+
+/* Light mode table row hover */
+tbody tr.light:hover {
+  background: #f8f9fa;
 }
 
 tbody tr:last-child td {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 mark {
-    background-color: yellow;
-    color: black;
-    padding: 0;
+  background-color: yellow;
+  color: black;
+  padding: 0;
 }
 
 .download-button-container {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 0px;
-    margin-left: 0px;
-    margin-bottom: -10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0px;
+  margin-left: 0px;
+  margin-bottom: -10px;
 }
 
 .download-button {
-    width: 100px;
-    height: 30px;
-    padding: 6px 10px;
-    border: none;
-    border-radius: 25px;
-    background-color: #007AFF;
-    color: white;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+  width: 100px;
+  height: 30px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 25px;
+  background-color: #007aff;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .download-button:hover {
-    background: #3d3bff;
-    color: #fff;
-    box-shadow: 0 2px 12px rgba(61,59,255,0.12);
+  background: #3d3bff;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(61, 59, 255, 0.12);
 }
 
-.loading-indicator {
-    width: 60px;
-    aspect-ratio: 1;
-    --g: conic-gradient(from -90deg at 10px 10px,#fff 90deg,#0000 0);
-    background: var(--g), var(--g), var(--g);
-    background-size: 50% 50%;
-    animation: l17 1s infinite;
-    margin: 60px auto;
-  }
-  @keyframes l17 {
-     0%   {background-position:0     0, 10px 10px, 20px 20px}
-     33%  {background-position:-30px 0, 10px 10px, 20px 20px}
-     66%  {background-position:-30px 0,-20px 10px, 20px 20px}
-     100% {background-position:-30px 0,-20px 10px,-10px 20px}
-  }
+/* Light mode download button */
+.download-button.light {
+  background: #0c0c0c;
+  color: #fff;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.2);
+  border: none;
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+}
+
+.download-button.light:hover {
+  background: #4b4b4b;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(108, 117, 125, 0.3);
+}
 
 .processing-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    color: #E0E0E0;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #e0e0e0;
+  text-align: center;
+}
+
+/* Light mode processing message */
+.processing-message.light {
+  color: #333;
 }
 
 .processing-message p {
-    margin: 0;
-    font-size: 16px;
-    color: #E0E0E0;
+  margin: 0;
+  font-size: 16px;
+  color: #e0e0e0;
+}
+
+/* Light mode processing message text */
+.processing-message.light p {
+  color: #333;
 }
 
 .spinner {
-    width: 40px;
-    height: 40px;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    border-left: 4px solid #007AFF;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #007aff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Light mode spinner */
+.spinner.light {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #f0a0c0;
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .error-message {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    color: #FF6B6B;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  color: #ff6b6b;
+  text-align: center;
+}
+
+/* Light mode error message */
+.error-message.light {
+  color: #ff6b6b;
 }
 
 .error-message p {
-    margin: 0;
-    font-size: 16px;
-    color: #FF6B6B;
+  margin: 0;
+  font-size: 16px;
+  color: #ff6b6b;
+}
+
+/* Light mode error message text */
+.error-message.light p {
+  color: #ff6b6b;
 }
 
 .retry-button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background-color: #007AFF;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #007aff;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .retry-button:hover {
-    background: #3d3bff;
-    color: #fff;
-    box-shadow: 0 2px 12px rgba(61,59,255,0.12);
+  background: #3d3bff;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(61, 59, 255, 0.12);
+}
+
+/* Light mode retry button */
+.retry-button.light {
+  background-color: #f0a0c0;
+  color: #333;
+}
+
+.retry-button.light:hover {
+  background: #e080a0;
+  color: #333;
+  box-shadow: 0 2px 12px rgba(240, 160, 192, 0.3);
 }

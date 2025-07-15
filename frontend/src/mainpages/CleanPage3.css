@@ -2,15 +2,24 @@
   width: 100%;
   max-width: 1200px;
   margin: 60px auto 0 auto;
-  background-color: #1A182E;
+  background-color: #1a182e;
   border-radius: 24px;
   padding: 40px 32px 48px 32px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid rgba(255,255,255,0.1);
-  color: #E0E0E0;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+}
+
+/* Light mode clean page3 container */
+.clean-page3-container.light {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  color: #333;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
 }
 
 .clean-page3-title {
@@ -21,13 +30,20 @@
   letter-spacing: 1px;
 }
 
+/* Light mode clean page3 title */
+.clean-page3-title.light {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
 .clean-page3-report {
   width: 100%;
   min-height: 220px;
-  background: #211F35;
+  background: #211f35;
   border-radius: 16px;
   border: 1px solid #2a2842;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   margin-top: 8px;
   margin-left: 16px;
   margin-right: 16px;
@@ -37,4 +53,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Light mode clean page3 report */
+.clean-page3-report.light {
+  background: #ffffff;
+  border: 1px solid #e9ecef;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  color: #333;
 }

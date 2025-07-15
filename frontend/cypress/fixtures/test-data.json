@@ -1,0 +1,36 @@
+{
+  "users": [
+    {
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "company": "Company A",
+      "role": "Manager"
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "company": "Company B",
+      "role": "Developer"
+    },
+    {
+      "name": "Bob Johnson",
+      "email": "bob.johnson@example.com",
+      "company": "Company C",
+      "role": "Designer"
+    }
+  ],
+  "testKeywords": ["email", "name", "company", "role"],
+  "formData": {
+    "support": {
+      "name": "Test User",
+      "email": "test@example.com",
+      "content": "This is a test support message"
+    },
+    "feedback": {
+      "name": "Test Feedback User",
+      "email": "feedback@example.com",
+      "content": "This is a test feedback message",
+      "feel": "like"
+    }
+  }
+}

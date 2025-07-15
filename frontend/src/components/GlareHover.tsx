@@ -61,7 +61,7 @@ const GlareHover: React.FC<GlareHoverProps> = ({
 
   return (
     <div
-      className={`glare-hover ${playOnce ? 'glare-hover--play-once' : ''} ${className}`}
+      className={`glare-hover ${playOnce ? "glare-hover--play-once" : ""} ${className}`}
       style={{ ...vars, ...style } as React.CSSProperties}
     >
       {children}
@@ -71,7 +71,7 @@ const GlareHover: React.FC<GlareHoverProps> = ({
           height: var(--gh-height);
           background: var(--gh-bg);
           border-radius: var(--gh-br);
-          border: 2px solid var(--gh-border);
+          border: 1px solid var(--gh-border);
           overflow: hidden;
           position: relative;
           display: flex;
@@ -112,4 +112,4 @@ const GlareHover: React.FC<GlareHoverProps> = ({
   );
 };
 
-export default GlareHover; 
+export default GlareHover;
