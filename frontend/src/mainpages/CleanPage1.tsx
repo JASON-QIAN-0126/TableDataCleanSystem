@@ -40,37 +40,24 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
     console.log(files);
     console.log(extractWords);
 
-    const formData = new FormData();
-
-    files.forEach(({ file }: FileWithId) => {
-      formData.append("files", file);
-    });
-
-    try {
-      const response = await fetch("http://localhost:8000/upload", {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        // const errorText = await response.text();
-        throw new Error(
-          `Upload failed: ${response.status} ${response.statusText}`,
-        );
-      }
-
-      const result = await response.json();
-      console.log("Response:", result);
-      setTaskId(result.task_id);
+    // Demo mode: simulate processing and jump to CleanPage2
+    setTimeout(() => {
+      setTaskId("demo-task-id");
       setIsFinished(true);
-    } catch (err) {
-      console.error("Upload failed", err);
-      setUploadError(err instanceof Error ? err.message : "Upload failed");
-      // setIsFinished(true);
-    } finally {
-      // setIsFinished(true);
       setIsUploading(false);
-    }
+    }, 1000);
+
+    // In real mode, you would send the request with authentication
+    // const token = localStorage.getItem("token");
+    // if (token) {
+    //   const response = await fetch("http://localhost:8000/api/upload", {
+    //     method: "POST",
+    //     headers: {
+    //       "Authorization": `Bearer ${token}`
+    //     },
+    //     body: formData,
+    //   });
+    // }
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

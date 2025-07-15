@@ -23,7 +23,7 @@ const Processing: React.FC<ProcessingProps> = ({
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentStage((prev) => (prev + 1) % stages.length);
-    }, 10000); // change every 10 seconds
+    }, 2000); // change every 2 seconds
 
     return () => clearInterval(interval);
   }, [stages.length]);

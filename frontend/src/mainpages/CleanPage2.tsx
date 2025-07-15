@@ -31,33 +31,24 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       { type: "module" },
     );
 
-    const checkProcessingStatus = async () => {
+    // Demo mode: load example file after 10 seconds
+    const timer = setTimeout(async () => {
       try {
-        console.log("Checking status for taskId:", taskId);
-        const response = await fetch(`http://localhost:8000/results/${taskId}`);
-        console.log("Response status:", response.status);
-
-        if (response.status === 202) {
-          // Still processing
-          console.log("Still processing...");
-          setTimeout(checkProcessingStatus, 2000);
-          return;
-        } else if (response.status === 200) {
-          console.log("Processing complete, getting file...");
+        console.log("Loading demo file...");
+        const response = await fetch("/example_file/Cleaned_data.xlsx");
+        if (response.ok) {
           const blob = await response.blob();
           const arrayBuffer = await blob.arrayBuffer();
           worker.postMessage(arrayBuffer);
         } else {
-          console.error("Unexpected response status:", response.status);
-          const errorText = await response.text();
-          console.error("Error response:", errorText);
+          console.error("Failed to load demo file");
           setIsLoading(false);
         }
       } catch (error) {
-        console.error("Error checking processing status:", error);
+        console.error("Error loading demo file:", error);
         setIsLoading(false);
       }
-    };
+    }, 10000); // 10 seconds loading
 
     worker.onmessage = (e) => {
       const { status, data, error } = e.data;
@@ -79,11 +70,6 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       setIsLoading(false);
       worker.terminate();
     };
-
-    // Wait for backend then start checking processing status
-    const timer = setTimeout(() => {
-      checkProcessingStatus();
-    }, 1500);
 
     return () => {
       clearTimeout(timer);
@@ -123,13 +109,13 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
 
   const handleDownload = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/results/${taskId}`);
+      const response = await fetch("/example_file/Cleaned_data.xlsx");
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute("download", `processed_data_${taskId}.xlsx`);
+        link.setAttribute("download", "Cleaned_data.xlsx");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
