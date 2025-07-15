@@ -11,6 +11,7 @@
   left: 0;
   z-index: 1000;
   min-height: 73px;
+  position: relative;
 }
 
 @media (max-height: 1079px) {
@@ -82,7 +83,11 @@
   gap: 40px;
   align-items: center;
   justify-content: center;
-  flex: 1;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 
 .topbar-light {
@@ -204,12 +209,15 @@
 }
 
 .topbar-dark .topbar-nav {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   gap: 30px;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  z-index: 1000;
 }
 
 @media (max-width: 900px) {
@@ -222,7 +230,13 @@
 .auth-buttons {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  margin-right: 16px;
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1001;
 }
 
 .signup-button {
@@ -234,6 +248,7 @@
   cursor: pointer;
   transition: color 0.3s ease;
   padding: 4px 8px;
+  order: 1;
 }
 
 .signup-button.light {
@@ -249,33 +264,41 @@
 }
 
 .signin-button {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  color: #252525;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
   padding: 8px 16px;
-  border-radius: 8px;
+  border-radius: 16px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  order: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-width: 80px;
 }
 
 .signin-button.light {
-  background: rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 1);
   color: #333;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .signin-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .signin-button.light:hover {
-  background: rgba(0, 0, 0, 0.15);
-  border-color: rgba(0, 0, 0, 0.3);
+  transform: scale(1.1);
+  transition: transform 0.2s ease-in-out;
 }
 
 /* User section styles */

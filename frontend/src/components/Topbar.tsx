@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import "./Topbar.css";
 import SignIn from "../mainpages/SignIn";
 import SignUp from "../mainpages/SignUp";
+import Switch from "./Switch";
 
 const NAVS = [
   { path: "/home", label: "Home" },
@@ -18,7 +19,12 @@ interface User {
   avatar: string;
 }
 
-const Topbar: React.FC<{ light?: boolean }> = ({ light }) => {
+interface TopbarProps {
+  light?: boolean;
+  setLight?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
   const location = useLocation();
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
@@ -43,12 +49,12 @@ const Topbar: React.FC<{ light?: boolean }> = ({ light }) => {
     }
   }, []);
 
-  const handleSignInSuccess = (userData: User, token: string) => {
+  const handleSignInSuccess = (userData: User, _token: string) => {
     setUser(userData);
     setShowSignIn(false);
   };
 
-  const handleSignUpSuccess = (userData: User, token: string) => {
+  const handleSignUpSuccess = (userData: User, _token: string) => {
     setUser(userData);
     setShowSignUp(false);
   };
@@ -70,45 +76,70 @@ const Topbar: React.FC<{ light?: boolean }> = ({ light }) => {
     setShowSignIn(true);
   };
 
-  const renderAuthButtons = () => {
-    if (user) {
-      return (
-        <div className="user-section">
-          <span className={`username ${light ? "light" : ""}`}>{user.username}</span>
-          <div 
-            className="user-avatar-container"
-            onMouseEnter={() => setShowUserMenu(true)}
-            onMouseLeave={() => setShowUserMenu(false)}
-          >
-            <div className={`user-avatar ${light ? "light" : ""}`}>
-              {user.avatar === 'default-avatar.png' ? '👤' : user.avatar}
-            </div>
-            {showUserMenu && (
-              <div className={`user-menu ${light ? "light" : ""}`}>
-                <button className="logout-button" onClick={handleLogout}>
-                  Logout
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-      );
-    }
+  const handleAvatarClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setShowUserMenu((v) => !v);
+  };
 
+  React.useEffect(() => {
+    if (!showUserMenu) return;
+    const handleClick = () => setShowUserMenu(false);
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, [showUserMenu]);
+
+  const renderAuthButtons = () => {
     return (
       <div className="auth-buttons">
-        <button
-          className={`signup-button ${light ? "light" : ""}`}
-          onClick={() => setShowSignUp(true)}
-        >
-          Sign up
-        </button>
-        <button
-          className={`signin-button ${light ? "light" : ""}`}
-          onClick={() => setShowSignIn(true)}
-        >
-          Sign in
-        </button>
+        {typeof setLight === 'function' && (
+          <Switch
+            checked={!!light}
+            onChange={() => setLight((v: boolean) => !v)}
+            light={!!light}
+          />
+        )}
+        {user ? (
+          <>
+            <span className={`username ${light ? "light" : ""}`}>{user.username}</span>
+            <div className="user-avatar-container" style={{ position: 'relative' }}>
+              <div
+                className={`user-avatar ${light ? "light" : ""}`}
+                onClick={handleAvatarClick}
+                tabIndex={0}
+                style={{ cursor: 'pointer' }}
+              >
+                {user.avatar === 'default-avatar.png' ? '👤' : user.avatar}
+              </div>
+              {showUserMenu && (
+                <div
+                  className={`user-menu ${light ? "light" : ""}`}
+                  onClick={(e) => e.stopPropagation()}
+                  tabIndex={0}
+                >
+                  <button className="logout-button" onClick={handleLogout}>
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <button
+              className={`signup-button ${light ? "light" : ""}`}
+              onClick={() => setShowSignUp(true)}
+              style={{ marginRight: 0 }}
+            >
+              Sign up
+            </button>
+            <button
+              className={`signin-button ${light ? "light" : ""}`}
+              onClick={() => setShowSignIn(true)}
+            >
+              Sign in
+            </button>
+          </>
+        )}
       </div>
     );
   };

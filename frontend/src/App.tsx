@@ -22,14 +22,8 @@ function AppContent() {
 
   return (
     <div className="app-container">
-      <div style={{ position: "fixed", top: 18, right: 36, zIndex: 9999 }}>
-        <Switch
-          checked={light}
-          onChange={() => setLight((v) => !v)}
-          light={light}
-        />
-      </div>
-      <Topbar light={light} />
+      {/* 移除原有Switch按钮 */}
+      <Topbar light={light} setLight={setLight} />
       <Logo light={light} />
       <Routes>
         <Route path="/" element={<Navigate to="/home" replace />} />
