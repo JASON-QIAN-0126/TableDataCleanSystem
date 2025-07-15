@@ -1,13 +1,15 @@
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
-const dbPath = path.join(__dirname, '../database.sqlite');
+// Vercel环境使用内存数据库，本地开发使用文件数据库
+const isVercel = process.env.VERCEL === '1';
+const dbPath = isVercel ? ':memory:' : path.join(__dirname, '../database.sqlite');
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
-    console.log('Connected to SQLite database');
+    console.log(`Connected to SQLite database: ${isVercel ? 'memory' : 'file'}`);
     initDatabase();
   }
 });
@@ -25,22 +27,44 @@ function initDatabase() {
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
-    `);
-
-    // Create tasks table
-    db.run(`
-      CREATE TABLE IF NOT EXISTS tasks (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER NOT NULL,
-        task_id TEXT UNIQUE NOT NULL,
-        status TEXT DEFAULT 'processing',
-        file_path TEXT,
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        FOREIGN KEY (user_id) REFERENCES users (id)
-      )
-    `);
+    `, (err) => {
+      if (err) {
+        console.error('Error creating users table:', err.message);
+      } else {
+        console.log('Users table ready');
+      }
+    });
   });
+}
+
+// 添加一些测试数据（仅在内存数据库中）
+if (isVercel) {
+  setTimeout(() => {
+    db.get('SELECT COUNT(*) as count FROM users', (err, row) => {
+      if (err) {
+        console.error('Error checking users count:', err.message);
+        return;
+      }
+      
+      if (row.count === 0) {
+        // 添加测试用户
+        const bcrypt = require('bcryptjs');
+        bcrypt.hash('123456', 10).then(hashedPassword => {
+          db.run(
+            'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
+            ['testuser', 'test@example.com', hashedPassword],
+            (err) => {
+              if (err) {
+                console.error('Error inserting test user:', err.message);
+              } else {
+                console.log('Test user created: test@example.com / 123456');
+              }
+            }
+          );
+        });
+      }
+    });
+  }, 1000);
 }
 
 module.exports = db; 
