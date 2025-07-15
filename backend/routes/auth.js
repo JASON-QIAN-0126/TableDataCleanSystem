@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
 const db = require('../config/database');
-const { authenticateToken, JWT_SECRET } = require('../middleware/auth');
+const { authenticateToken, generateToken } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -71,11 +71,7 @@ router.post('/register', [
             }
 
             // Generate JWT token
-            const token = jwt.sign(
-              { id: this.lastID, username, email },
-              JWT_SECRET,
-              { expiresIn: '7d' }
-            );
+            const token = generateToken({ id: this.lastID, username, email });
 
             res.status(201).json({
               success: true,
@@ -157,11 +153,7 @@ router.post('/login', [
         }
 
         // Generate JWT token
-        const token = jwt.sign(
-          { id: user.id, username: user.username, email: user.email },
-          JWT_SECRET,
-          { expiresIn: '7d' }
-        );
+        const token = generateToken({ id: user.id, username: user.username, email: user.email });
 
         res.json({
           success: true,

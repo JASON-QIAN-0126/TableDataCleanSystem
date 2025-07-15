@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const db = require('../config/database');
 
-const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key';
+// JWT配置
+const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
+const JWT_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '7d';
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -35,4 +37,15 @@ const getUserById = (req, res, next) => {
   });
 };
 
-module.exports = { authenticateToken, getUserById, JWT_SECRET }; 
+// 生成JWT token的辅助函数
+const generateToken = (payload) => {
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
+};
+
+module.exports = { 
+  authenticateToken, 
+  getUserById, 
+  JWT_SECRET, 
+  JWT_EXPIRES_IN,
+  generateToken 
+}; 
