@@ -24,8 +24,8 @@ const Homepage: React.FC<{ light?: boolean }> = ({ light = true }) => {
       className="homepage-container"
       style={{
         backgroundImage: light
-          ? "url('/src/assets/background_l.png')"
-          : "url('/src/assets/Background.png')",
+          ? "url('/background_l.png')"
+          : "url('/Background.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

@@ -3,6 +3,7 @@ import "./SignUp.css";
 import { BorderBeam } from "../components/magicui/border-beam";
 import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
+import { API_BASE_URL } from "../lib/config";
 
 interface SignUpProps {
   light?: boolean;
@@ -31,7 +32,7 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
     }
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

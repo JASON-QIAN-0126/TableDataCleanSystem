@@ -3,6 +3,7 @@ import "./SignIn.css";
 import { BorderBeam } from "../components/magicui/border-beam";
 import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
+import { API_BASE_URL } from "../lib/config";
 
 interface SignInProps {
   light?: boolean;
@@ -23,7 +24,7 @@ const SignIn: React.FC<SignInProps> = ({ light, onClose, onSwitchToSignUp, onSig
     setError("");
 
     try {
-      const response = await fetch("http://localhost:8000/api/auth/login", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
