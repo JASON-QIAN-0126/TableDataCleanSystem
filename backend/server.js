@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth.js';
+import db, { ensureDbReady } from './config/database.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -43,6 +44,28 @@ app.get('/health', (req, res) => {
   });
 });
 
+// Database status check
+app.get('/api/db-status', (req, res) => {
+  db.get('SELECT COUNT(*) as count FROM users', (err, row) => {
+    if (err) {
+      res.json({
+        status: 'ERROR',
+        message: 'Database error',
+        error: err.message,
+        timestamp: new Date().toISOString()
+      });
+    } else {
+      res.json({
+        status: 'OK',
+        message: 'Database is working',
+        userCount: row.count,
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+      });
+    }
+  });
+});
+
 // Root endpoint
 app.get('/', (req, res) => {
   res.json({ 
@@ -51,6 +74,7 @@ app.get('/', (req, res) => {
     environment: process.env.NODE_ENV || 'development',
     endpoints: {
       health: '/health',
+      dbStatus: '/api/db-status',
       register: '/api/auth/register',
       login: '/api/auth/login',
       me: '/api/auth/me'

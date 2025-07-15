@@ -2,13 +2,13 @@ import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { body, validationResult } from 'express-validator';
-import db from '../config/database.js';
+import db, { ensureDbReady } from '../config/database.js';
 import { authenticateToken, generateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
 // Register
-router.post('/register', [
+router.post('/register', ensureDbReady, [
   body('username')
     .isLength({ min: 3, max: 20 })
     .withMessage('Username must be between 3 and 20 characters')
@@ -104,7 +104,7 @@ router.post('/register', [
 });
 
 // Login
-router.post('/login', [
+router.post('/login', ensureDbReady, [
   body('email')
     .isEmail()
     .withMessage('Must be a valid email address')
@@ -182,7 +182,7 @@ router.post('/login', [
 });
 
 // Get current user
-router.get('/me', authenticateToken, (req, res) => {
+router.get('/me', ensureDbReady, authenticateToken, (req, res) => {
   db.get('SELECT id, username, email, avatar FROM users WHERE id = ?', [req.user.id], (err, user) => {
     if (err) {
       console.error('Database error:', err);
@@ -207,7 +207,7 @@ router.get('/me', authenticateToken, (req, res) => {
 });
 
 // Logout (client-side token removal, but we can add server-side blacklist if needed)
-router.post('/logout', authenticateToken, (req, res) => {
+router.post('/logout', ensureDbReady, authenticateToken, (req, res) => {
   res.json({
     success: true,
     message: 'Logout successful'
