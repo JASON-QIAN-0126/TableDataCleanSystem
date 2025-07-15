@@ -1,6 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const authRoutes = require('./routes/auth');
+import express from 'express';
+import cors from 'cors';
+import authRoutes from './routes/auth.js';
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -81,4 +81,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Export for Vercel
-module.exports = app; 
+export default app; 

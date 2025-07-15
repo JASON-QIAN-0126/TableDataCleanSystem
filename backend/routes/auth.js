@@ -1,9 +1,9 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const { body, validationResult } = require('express-validator');
-const db = require('../config/database');
-const { authenticateToken, generateToken } = require('../middleware/auth');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import { body, validationResult } from 'express-validator';
+import db from '../config/database.js';
+import { authenticateToken, generateToken } from '../middleware/auth.js';
 
 const router = express.Router();
 
@@ -214,4 +214,4 @@ router.post('/logout', authenticateToken, (req, res) => {
   });
 });
 
-module.exports = router; 
+export default router; 

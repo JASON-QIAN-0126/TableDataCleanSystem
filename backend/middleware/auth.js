@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
-const db = require('../config/database');
+import jwt from 'jsonwebtoken';
+import db from '../config/database.js';
 
 // JWT配置
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-this-in-production';
@@ -42,7 +42,7 @@ const generateToken = (payload) => {
   return jwt.sign(payload, JWT_SECRET, { expiresIn: JWT_EXPIRES_IN });
 };
 
-module.exports = { 
+export { 
   authenticateToken, 
   getUserById, 
   JWT_SECRET, 

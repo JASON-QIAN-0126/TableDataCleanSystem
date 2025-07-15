@@ -1,7 +1,12 @@
-const sqlite3 = require('sqlite3').verbose();
-const path = require('path');
+import sqlite3 from 'sqlite3';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import bcrypt from 'bcryptjs';
 
 // Vercel环境使用内存数据库，本地开发使用文件数据库
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const isVercel = process.env.VERCEL === '1';
 const dbPath = isVercel ? ':memory:' : path.join(__dirname, '../database.sqlite');
 
@@ -48,7 +53,6 @@ if (isVercel) {
       
       if (row.count === 0) {
         // 添加测试用户
-        const bcrypt = require('bcryptjs');
         bcrypt.hash('123456', 10).then(hashedPassword => {
           db.run(
             'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
@@ -67,4 +71,4 @@ if (isVercel) {
   }, 1000);
 }
 
-module.exports = db; 
+export default db; 
