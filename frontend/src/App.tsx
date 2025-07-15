@@ -13,7 +13,6 @@ import Support from "./mainpages/Support";
 import Feedback from "./mainpages/Feedback";
 import Writter from "./components/Writter";
 import Logo from "./components/Logo";
-import Switch from "./components/Switch";
 import "./App.css";
 
 function AppContent() {
@@ -22,7 +21,6 @@ function AppContent() {
 
   return (
     <div className="app-container">
-      {/* 移除原有Switch按钮 */}
       <Topbar light={light} setLight={setLight} />
       <Logo light={light} />
       <Routes>
