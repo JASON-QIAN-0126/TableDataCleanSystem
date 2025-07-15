@@ -11,7 +11,7 @@ interface SwitchProps {
 const Switch: React.FC<SwitchProps> = ({
   checked,
   onChange,
-  light = false,
+  light = true,
 }) => {
   return (
     <div

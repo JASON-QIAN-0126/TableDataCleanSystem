@@ -12,7 +12,7 @@ import { cn } from "../lib/utils";
 import { AnimatedGradientText } from "../components/magicui/animated-gradient-text";
 import TitleLight from "../components/Title_light";
 
-const Homepage: React.FC<{ light?: boolean }> = ({ light = false }) => {
+const Homepage: React.FC<{ light?: boolean }> = ({ light = true }) => {
   const navigate = useNavigate();
 
   const handleStartClean = () => {

@@ -16,7 +16,7 @@ import Logo from "./components/Logo";
 import "./App.css";
 
 function AppContent() {
-  const [light, setLight] = useState(false);
+  const [light, setLight] = useState(true); // 初始设置为light模式
   const location = useLocation();
 
   return (

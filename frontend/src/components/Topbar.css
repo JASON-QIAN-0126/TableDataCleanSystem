@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 40px;
-  background-color: transparent;
+  background-color: transparent !important;
+  background: transparent !important;
   width: 100%;
   box-sizing: border-box;
   position: fixed;
@@ -117,6 +118,14 @@
   display: flex;
 }
 
+.topbar-container.topbar-dark {
+  background-color: transparent !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
 /* Light mode navigation link styles */
 .topbar-light .nav-link {
   color: #333;
@@ -218,6 +227,7 @@
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  background: transparent !important;
 }
 
 @media (max-width: 900px) {

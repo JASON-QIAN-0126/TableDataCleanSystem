@@ -8,7 +8,7 @@ interface ProcessingProps {
 
 const Processing: React.FC<ProcessingProps> = ({
   className = "",
-  light = false,
+  light = true,
 }) => {
   const [currentStage, setCurrentStage] = useState(0);
 
