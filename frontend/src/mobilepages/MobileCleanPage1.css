@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  /* 移除这里的背景设置，因为现在在组件中设置 */
 }
 
 .mobile-clean-card {
@@ -41,7 +40,7 @@
   margin-bottom: 24px;
 }
 
-.section-title {
+.mobile-section-title {
   color: #ffffff;
   font-size: 16px;
   font-weight: 500;
@@ -49,11 +48,11 @@
   margin-top: 0;
 }
 
-.section-title.light {
+.mobile-section-title.light {
   color: #1a1a1a;
 }
 
-.file-upload-area {
+.mobile-file-upload-area {
   text-align: center;
   padding: 20px;
   border: 2px dashed rgba(255, 255, 255, 0.3);
@@ -61,12 +60,12 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-.file-upload-area.light {
+.mobile-file-upload-area.light {
   border: 2px dashed rgba(0, 0, 0, 0.3);
   background: rgba(0, 0, 0, 0.05);
 }
 
-.upload-button {
+.mobile-upload-button {
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   border: none;
   border-radius: 10px;
@@ -79,75 +78,89 @@
   margin-bottom: 8px;
 }
 
-.upload-button.light {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+.mobile-upload-button.light {
+  background: #0c0c0c;
 }
 
-.upload-button:hover {
+.mobile-upload-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
-.upload-hint {
+.mobile-upload-hint {
   color: #888;
   font-size: 12px;
   margin: 0;
 }
 
-.upload-hint.light {
+.mobile-upload-hint.light {
   color: #666;
 }
 
-.file-list {
+.mobile-file-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.file-item {
+.mobile-file-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 12px;
+  padding: 12px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  min-height: 50px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.file-item.light {
+.mobile-file-item.light {
   background: rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
-.file-name {
+.mobile-file-name {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 18px;
   flex: 1;
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+  font-weight: 500;
 }
 
-.file-item.light .file-name {
+.mobile-file-name.light {
   color: #1a1a1a;
 }
 
-.remove-button {
+.mobile-remove-button {
   background: none;
   border: none;
   color: #ef4444;
-  font-size: 18px;
+  font-size: 12px;
+  font-weight: 500;
   cursor: pointer;
-  padding: 4px;
-  border-radius: 4px;
+  padding: 6px 8px;
+  border-radius: 6px;
   transition: all 0.3s ease;
+  min-width: 60px;
 }
 
-.remove-button:hover {
+.mobile-remove-button.light {
+  color: #dc2626;
+}
+
+.mobile-remove-button:hover {
   background: rgba(239, 68, 68, 0.1);
 }
 
-.extract-textarea {
+.mobile-remove-button.light:hover {
+  background: rgba(220, 38, 38, 0.1);
+}
+
+.mobile-extract-textarea {
   width: 100%;
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -160,23 +173,23 @@
   box-sizing: border-box;
 }
 
-.extract-textarea.light {
+.mobile-extract-textarea.light {
   border: 1px solid rgba(0, 0, 0, 0.2);
   background: rgba(0, 0, 0, 0.05);
   color: #1a1a1a;
 }
 
-.extract-textarea:focus {
+.mobile-extract-textarea:focus {
   outline: none;
   border-color: #6366f1;
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.extract-textarea::placeholder {
+.mobile-extract-textarea::placeholder {
   color: #888;
 }
 
-.error-message {
+.mobile-error-message {
   background: rgba(239, 68, 68, 0.1);
   border: 1px solid rgba(239, 68, 68, 0.3);
   border-radius: 8px;
@@ -186,7 +199,7 @@
   margin-bottom: 16px;
 }
 
-.finish-button {
+.mobile-finish-button {
   width: 100%;
   background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   border: none;
@@ -199,26 +212,26 @@
   transition: all 0.3s ease;
 }
 
-.finish-button.light {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+.mobile-finish-button.light {
+  background: #0c0c0c;
 }
 
-.finish-button:hover:not(:disabled) {
+.mobile-finish-button:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
 }
 
-.finish-button:disabled {
+.mobile-finish-button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.finish-button.loading {
+.mobile-finish-button.loading {
   position: relative;
 }
 
-.finish-button.loading::after {
+.mobile-finish-button.loading::after {
   content: '';
   position: absolute;
   right: 16px;

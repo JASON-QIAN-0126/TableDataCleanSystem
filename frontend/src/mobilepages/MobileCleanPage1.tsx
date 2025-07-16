@@ -21,11 +21,22 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFiles = Array.from(e.target.files || []);
+    console.log("Selected files:", selectedFiles);
+    
     const filesWithId = selectedFiles.map((file) => ({
       ...file,
       id: Math.random().toString(36).substr(2, 9),
     }));
-    setFiles((prev) => [...prev, ...filesWithId]);
+    
+    console.log("Files with ID:", filesWithId);
+    setFiles((prev) => {
+      const newFiles = [...prev, ...filesWithId];
+      console.log("Updated files state:", newFiles);
+      return newFiles;
+    });
+    
+    // Reset the input value to allow selecting the same file again
+    e.target.value = '';
   };
 
   const removeFile = (id: string) => {
@@ -84,8 +95,8 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
         </h1>
         
         <div className="mobile-clean-section">
-          <h3 className={`section-title ${light ? "light" : ""}`}>Upload Files</h3>
-          <div className={`file-upload-area ${light ? "light" : ""}`}>
+          <h3 className={`mobile-section-title ${light ? "light" : ""}`}>Upload Files</h3>
+          <div className={`mobile-file-upload-area ${light ? "light" : ""}`}>
             <input
               ref={fileInputRef}
               type="file"
@@ -95,29 +106,36 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
               style={{ display: "none" }}
             />
             <button
-              className={`upload-button ${light ? "light" : ""}`}
+              className={`mobile-upload-button ${light ? "light" : ""}`}
               onClick={handleFileSelectClick}
             >
               Select Files
             </button>
-            <p className={`upload-hint ${light ? "light" : ""}`}>
+            <p className={`mobile-upload-hint ${light ? "light" : ""}`}>
               CSV, Excel, TSV files supported
+            </p>
+            {/* Temporary debug info */}
+            <p className={`upload-hint ${light ? "light" : ""}`} style={{marginTop: "8px", fontSize: "12px"}}>
+              Files selected: {files.length}
             </p>
           </div>
         </div>
 
         {files.length > 0 && (
           <div className="mobile-clean-section">
-            <h3 className={`section-title ${light ? "light" : ""}`}>Selected Files</h3>
-            <div className="file-list">
-              {files.map((file) => (
-                <div key={file.id} className={`file-item ${light ? "light" : ""}`}>
-                  <span className="file-name">{file.name}</span>
+            <h3 className={`mobile-section-title ${light ? "light" : ""}`}>Selected Files ({files.length})</h3>
+            <div className="mobile-file-list">
+              {files.map((file, index) => (
+                <div key={file.id} className={`mobile-file-item ${light ? "light" : ""}`}>
+                  <span className={`mobile-file-name ${light ? "light" : ""}`}>
+                    {file.name || `File ${index + 1}`}
+                  </span>
                   <button
-                    className="remove-button"
+                    className={`mobile-remove-button ${light ? "light" : ""}`}
                     onClick={() => removeFile(file.id)}
+                    title="Delete file"
                   >
-                    ×
+                    Delete
                   </button>
                 </div>
               ))}
@@ -126,9 +144,9 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
         )}
 
         <div className="mobile-clean-section">
-          <h3 className={`section-title ${light ? "light" : ""}`}>Extract Keywords</h3>
+          <h3 className={`mobile-section-title ${light ? "light" : ""}`}>Extract Keywords</h3>
           <textarea
-            className={`extract-textarea ${light ? "light" : ""}`}
+            className={`mobile-extract-textarea ${light ? "light" : ""}`}
             value={extractWords}
             onChange={(e) => setExtractWords(e.target.value)}
             placeholder="Enter keywords to extract (optional)"
@@ -137,13 +155,13 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
         </div>
 
         {uploadError && (
-          <div className="error-message">
+          <div className="mobile-error-message">
             {uploadError}
           </div>
         )}
 
         <button
-          className={`finish-button ${light ? "light" : ""} ${isUploading ? "loading" : ""}`}
+          className={`mobile-finish-button ${light ? "light" : ""} ${isUploading ? "loading" : ""}`}
           onClick={handleFinishClick}
           disabled={isUploading || files.length === 0}
         >

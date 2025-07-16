@@ -12,29 +12,11 @@
 
 @media (max-width: 600px) {
   .logo-container {
-    top: 4px;
+    top: -5px;
     left: 8px;
   }
   .logo-image {
     width: 54px;
     height: 54px;
-  }
-}
-
-@media (max-height: 1079px) {
-  .logo-container {
-    top: -17px;
-    left: 10px;
-  }
-}
-
-@media (max-height: 899px) {
-  .logo-container {
-    top: -10px;
-    left: 10px;
-  }
-  .logo-image {
-    width: 80px;
-    height: 80px;
   }
 }

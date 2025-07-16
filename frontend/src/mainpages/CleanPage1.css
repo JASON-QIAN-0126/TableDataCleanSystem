@@ -45,7 +45,7 @@
 }
 
 .select-file-btn {
-  background-color: #007aff;
+  background-color: #4868f7;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -68,7 +68,7 @@
 
 /* Light mode button */
 .select-file-btn.light {
-  background-color: #0c0c0c;
+  background-color: #101415;
   color: #fff;
 }
 
@@ -274,7 +274,7 @@
 }
 
 .finish-btn {
-  background-color: #007aff;
+  background-color: #4868f7;
   color: white;
   border: none;
   padding: 10px 30px;
@@ -296,7 +296,7 @@
 
 /* Light mode finish button */
 .finish-btn.light {
-  background-color: #0c0c0c;
+  background-color: #101415;
   color: #fff;
 }
 

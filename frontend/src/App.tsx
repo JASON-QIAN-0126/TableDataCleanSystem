@@ -19,8 +19,8 @@ import MobileCleanPage1 from "./mobilepages/MobileCleanPage1";
 import MobileSupport from "./mobilepages/MobileSupport";
 import MobileFeedback from "./mobilepages/MobileFeedback";
 import "./App.css";
+import Warning from "./mobilepages/warning";
 
-// 自定义hook来检测是否为移动端
 function useIsMobile() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 450);
 
@@ -36,10 +36,25 @@ function useIsMobile() {
   return isMobile;
 }
 
+function useIsNarrowScreen(threshold = 1050) {
+  const [isNarrow, setIsNarrow] = useState(window.innerWidth < threshold);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsNarrow(window.innerWidth < threshold);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [threshold]);
+
+  return isNarrow;
+}
+
 function AppContent() {
-  const [light, setLight] = useState(true); // 初始设置为light模式
+  const [light, setLight] = useState(true);
   const location = useLocation();
   const isMobile = useIsMobile();
+  const isNarrow = useIsNarrowScreen(1050);
 
   if (isMobile) {
     return (
@@ -54,6 +69,7 @@ function AppContent() {
           <Route path="/feedback" element={<MobileFeedback light={light} />} />
         </Routes>
         {location.pathname == "/home" && <Writter />}
+        {isNarrow && <Warning />}
       </div>
     );
   }
@@ -70,6 +86,7 @@ function AppContent() {
         <Route path="/feedback" element={<Feedback light={light} />} />
       </Routes>
       {location.pathname == "/home" && <Writter />}
+      {isNarrow && <Warning />}
     </div>
   );
 }

@@ -1,0 +1,14 @@
+.warning-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 165, 0, 0.1); /* 柔和橙色背景 */
+  color: #d97706; /* amber-600 */
+  font-size: 14px;
+  padding: 10px;
+  text-align: center;
+  z-index: 1000;
+  border-top: 1px solid rgba(255, 165, 0, 0.3);
+  backdrop-filter: blur(4px);
+}

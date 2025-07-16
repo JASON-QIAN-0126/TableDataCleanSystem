@@ -112,7 +112,7 @@ const MobileFeedback: React.FC<{ light?: boolean }> = ({ light }) => {
       
       <div className={`mobile-feedback-card ${light ? "light" : ""}`} style={{ position: "relative", zIndex: 3 }}>
         <h1 className={`mobile-feedback-title ${light ? "light" : ""}`}>
-          Got Thoughts? We're Listening!
+          Got Thoughts?
         </h1>
         
         <form onSubmit={handleSubmit} className="feedback-form">

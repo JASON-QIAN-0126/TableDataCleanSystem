@@ -65,12 +65,6 @@ const MobileSupport: React.FC<{ light?: boolean }> = ({ light }) => {
             Thank you for your message. Our team will get back to you shortly.
           </div>
           
-          <button
-            className={`back-button ${light ? "light" : ""}`}
-            onClick={() => setSubmitted(false)}
-          >
-            Send Another Message
-          </button>
         </div>
       </div>
     );
@@ -104,7 +98,7 @@ const MobileSupport: React.FC<{ light?: boolean }> = ({ light }) => {
       
       <div className={`mobile-support-card ${light ? "light" : ""}`} style={{ position: "relative", zIndex: 3 }}>
         <h1 className={`mobile-support-title ${light ? "light" : ""}`}>
-          Need Help With Cleaning?
+          Need Help?
         </h1>
         
         <form onSubmit={handleSubmit} className="support-form">

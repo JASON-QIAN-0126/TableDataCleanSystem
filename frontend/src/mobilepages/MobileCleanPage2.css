@@ -222,7 +222,7 @@
 
 .next-button {
   width: 100%;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   border: none;
   border-radius: 12px;
   color: #ffffff;
@@ -235,7 +235,7 @@
 }
 
 .next-button.light {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: #0c0c0c;
 }
 
 .next-button:hover {

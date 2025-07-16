@@ -101,21 +101,6 @@ const MobileCleanPage3: React.FC<{ light?: boolean }> = ({ light }) => {
           </div>
         </div>
 
-        <div className="action-buttons">
-          <button
-            className={`download-button ${light ? "light" : ""}`}
-            onClick={handleDownload}
-          >
-            Download Cleaned Data
-          </button>
-          
-          <button
-            className={`new-cleaning-button ${light ? "light" : ""}`}
-            onClick={handleNewCleaning}
-          >
-            Start New Cleaning
-          </button>
-        </div>
       </div>
     </div>
   );

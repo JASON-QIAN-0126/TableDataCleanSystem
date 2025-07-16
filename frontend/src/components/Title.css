@@ -50,10 +50,12 @@
 
 @media (max-width: 768px) {
   .main-title {
-    font-size: 2rem;
+    margin-left: 30px;
+    font-size: 3rem;
   }
 
   .subtitle {
     font-size: 1rem;
+    margin-left: 30px;
   }
 }

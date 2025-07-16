@@ -16,13 +16,9 @@ body,
 }
 
 .app-container.mobile {
-  /* 移动端特定样式 */
   overflow-x: hidden;
 }
 
-.app-container.desktop {
-  /* 桌面端特定样式 */
-}
 
 /* 移动端媒体查询 */
 @media (max-width: 450px) {

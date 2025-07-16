@@ -111,7 +111,7 @@
 }
 
 .submit-button.light {
-  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  background: #0c0c0c;
 }
 
 .submit-button:hover:not(:disabled) {
@@ -146,7 +146,7 @@
 }
 
 .checkmark.light {
-  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  background: #0c0c0c;
 }
 
 @keyframes scaleIn {
