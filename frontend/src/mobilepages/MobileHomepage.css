@@ -1,0 +1,76 @@
+.mobile-homepage-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 0;
+  position: relative;
+}
+
+.mobile-homepage-main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  padding: 80px 20px 120px 20px; /* 给顶部和底部留出足够空间 */
+  box-sizing: border-box;
+}
+
+.mobile-title-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.mobile-button-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.mobile-features-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 350px;
+}
+
+/* 确保在小屏幕上也能正常显示 */
+@media (max-width: 380px) {
+  .mobile-homepage-main {
+    padding: 70px 16px 100px 16px;
+  }
+  
+  .mobile-title-section {
+    margin-bottom: 30px;
+  }
+  
+  .mobile-button-section {
+    margin-bottom: 40px;
+  }
+  
+  .mobile-features-section {
+    max-width: 100%;
+    gap: 12px;
+  }
+}
+
+/* 适配非常小的屏幕 */
+@media (max-width: 320px) {
+  .mobile-homepage-main {
+    padding: 60px 12px 80px 12px;
+  }
+  
+  .mobile-title-section {
+    margin-bottom: 25px;
+  }
+  
+  .mobile-button-section {
+    margin-bottom: 35px;
+  }
+} 
