@@ -1,5 +1,5 @@
 import React from "react";
-import "./Warning.css";
+import "./warning.css";
 
 const Warning: React.FC = () => {
   return (
