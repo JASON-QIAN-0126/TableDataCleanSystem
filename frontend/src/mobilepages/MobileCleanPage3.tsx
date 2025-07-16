@@ -11,15 +11,6 @@ const MobileCleanPage3: React.FC<{ light?: boolean }> = ({ light }) => {
     accuracy: "98.4%"
   };
 
-  const handleDownload = () => {
-    // Demo mode: simulate download
-    alert("Download functionality would be implemented here");
-  };
-
-  const handleNewCleaning = () => {
-    window.location.href = "/clean";
-  };
-
   return (
     <div 
       className={`mobile-clean3-container ${light ? "light" : ""}`}

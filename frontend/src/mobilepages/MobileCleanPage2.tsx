@@ -31,9 +31,6 @@ const MobileCleanPage2: React.FC<MobileCleanPage2Props> = ({ taskId, light }) =>
         console.log("Loading demo file...");
         const response = await fetch("/example_file/Cleaned_data.xlsx");
         if (response.ok) {
-          const blob = await response.blob();
-
-          
           // Simulate data processing
           const mockData = [
             { "Name": "John Doe", "Email": "john@example.com", "Company": "Tech Corp", "Role": "Developer" },
