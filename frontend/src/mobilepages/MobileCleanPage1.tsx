@@ -115,7 +115,7 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
               CSV, Excel, TSV files supported
             </p>
             {/* Temporary debug info */}
-            <p className={`upload-hint ${light ? "light" : ""}`} style={{marginTop: "8px", fontSize: "12px"}}>
+            <p className={`mobile-upload-hint ${light ? "light" : ""}`} style={{marginTop: "8px", fontSize: "12px"}}>
               Files selected: {files.length}
             </p>
           </div>
