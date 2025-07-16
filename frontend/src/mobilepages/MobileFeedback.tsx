@@ -73,12 +73,6 @@ const MobileFeedback: React.FC<{ light?: boolean }> = ({ light }) => {
             Thanks! We truly appreciate your feedback and will take it into consideration.
           </div>
           
-          <button
-            className={`back-button ${light ? "light" : ""}`}
-            onClick={() => setSubmitted(false)}
-          >
-            Send More Feedback
-          </button>
         </div>
       </div>
     );
