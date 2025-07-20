@@ -24,11 +24,11 @@ import "./App.css";
 import Warning from "./mobilepages/warning";
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 800);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 600);
+      setIsMobile(window.innerWidth < 800);
     };
 
     window.addEventListener('resize', handleResize);

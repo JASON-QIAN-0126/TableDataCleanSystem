@@ -159,13 +159,15 @@
   color: #333;
 }
 
-@media (max-width: 600px) {
-  .topbar-light {
-    width: 100%;
-    min-width: auto;
-    padding: 10px 20px;
-    top: 0;
-    border-radius: 0;
+@media (max-width: 1000px) {
+  .topbar-light .nav-link {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .topbar-light .nav-link.active-light {
+    font-size: 0.8rem;
+    padding: 3px 8px;
   }
 }
 
@@ -204,6 +206,18 @@
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (max-width: 1000px) {
+  .topbar-dark .nav-link {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+
+  .topbar-dark .nav-link.active-dark {
+    font-size: 0.8rem;
+    padding: 3px 8px;
+  }
+}
+
 .topbar-dark .nav-link:hover:not(.active-dark) {
   color: #fff;
   transform: scale(1.1);
@@ -228,7 +242,7 @@
   background: transparent !important;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .topbar-dark .topbar-nav {
     gap: 32px;
   }
@@ -423,7 +437,7 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+@media (max-width: 1000px) {
   .auth-buttons {
     gap: 12px;
   }
@@ -445,5 +459,17 @@
     width: 28px;
     height: 28px;
     font-size: 14px;
+  }
+
+  .nav-link {
+    font-size: 0.9rem;
+  }
+
+  .topbar-dark .nav-link {
+    gap: 20px;
+  }
+
+  .topbar-light .nav-link {
+    padding: 4px 8px;
   }
 }
