@@ -68,6 +68,8 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
         }
         setData(data);
         setFilteredData(data);
+        
+        saveCleanHistory(data);
       } else {
         console.error("Error processing xlsx file in worker:", error);
       }
@@ -80,8 +82,6 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       setIsLoading(false);
       worker.terminate();
     };
-
-    saveCleanHistory();
     
     return () => {
       clearTimeout(timer);
@@ -150,20 +150,24 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
     }
   };
 
-  const saveCleanHistory = () => {
+  const saveCleanHistory = (tableData = data) => {
     try {
-      const user = localStorage.getItem("user");
-      if (!user) return;
+      const userData = localStorage.getItem("user");
+      if (!userData) return;
+
+      const user = JSON.parse(userData);
+      const userId = user.id;
 
       const historyRecord = {
         id: `clean_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         date: new Date().toISOString(),
         fileName: "Demo Data File",
-        recordsCount: data.length,
+        recordsCount: tableData.length,
         status: 'completed' as const
       };
 
-      const existingHistory = localStorage.getItem("cleanHistory");
+      const historyKey = `cleanHistory_${userId}`;
+      const existingHistory = localStorage.getItem(historyKey);
       let history = [];
       
       if (existingHistory) {
@@ -180,7 +184,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
         history = history.slice(0, 10);
       }
 
-      localStorage.setItem("cleanHistory", JSON.stringify(history));
+      localStorage.setItem(historyKey, JSON.stringify(history));
     } catch (error) {
       console.error("Error saving clean history:", error);
     }

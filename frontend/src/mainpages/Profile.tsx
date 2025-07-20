@@ -34,17 +34,18 @@ const Profile: React.FC<{ light?: boolean }> = ({ light }) => {
         const parsedUser = JSON.parse(userData);
         setUser(parsedUser);
         setUsername(parsedUser.username);
+
+        const historyKey = `cleanHistory_${parsedUser.id}`;
+        const history = localStorage.getItem(historyKey);
+        if (history) {
+          try {
+            setCleanHistory(JSON.parse(history));
+          } catch (error) {
+            console.error("Error parsing clean history:", error);
+          }
+        }
       } catch (error) {
         console.error("Error parsing user data:", error);
-      }
-    }
-
-    const history = localStorage.getItem("cleanHistory");
-    if (history) {
-      try {
-        setCleanHistory(JSON.parse(history));
-      } catch (error) {
-        console.error("Error parsing clean history:", error);
       }
     }
   }, []);
@@ -229,7 +230,14 @@ const Profile: React.FC<{ light?: boolean }> = ({ light }) => {
           </div>
 
           <div className="profile-section">
-            <h3 className={`section-title ${light ? "light" : ""}`}>Clean History</h3>
+            <h3 className={`section-title ${light ? "light" : ""}`}>
+              Clean History
+              {cleanHistory.length > 3 && (
+                <span className={`scroll-hint ${light ? "light" : ""}`}>
+                  ({cleanHistory.length} records - scroll to view all)
+                </span>
+              )}
+            </h3>
             
             {cleanHistory.length === 0 ? (
               <div className={`no-history ${light ? "light" : ""}`}>

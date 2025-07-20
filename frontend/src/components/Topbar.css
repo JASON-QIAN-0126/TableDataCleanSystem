@@ -397,6 +397,14 @@
   background: rgba(255, 255, 255, 0.1);
 }
 
+.profile-button.light {
+  color: #333;
+}
+
+.profile-button.light:hover {
+  background: rgba(112, 110, 110, 0.1);
+}
+
 .logout-button {
   width: 100%;
   background: none;

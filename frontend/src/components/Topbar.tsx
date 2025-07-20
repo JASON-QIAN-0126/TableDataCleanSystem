@@ -65,6 +65,10 @@ const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
     localStorage.removeItem("user");
     setUser(null);
     setShowUserMenu(false);
+    
+    if (location.pathname === "/profile") {
+      navigate("/home");
+    }
   };
 
   const handleProfileClick = () => {
@@ -122,7 +126,7 @@ const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
                   onClick={(e) => e.stopPropagation()}
                   tabIndex={0}
                 >
-                  <button className="profile-button" onClick={handleProfileClick}>
+                  <button className={`profile-button ${light ? "light" : ""}`} onClick={handleProfileClick}>
                     Profile
                   </button>
                   <button className="logout-button" onClick={handleLogout}>
