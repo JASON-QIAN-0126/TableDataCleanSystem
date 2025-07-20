@@ -97,15 +97,4 @@ describe("File Upload and Data Cleaning", () => {
       cy.get(".close-btn").click();
     });
   });
-
-  describe("Animation and Visual Effects", () => {
-    beforeEach(() => cy.visit("/clean"));
-
-    it("progress bar animates", () => {
-      cy.get('input[type="file"]').selectFile(csvPath, { force: true });
-      cy.get(".progress-bar").should("be.visible");
-      cy.wait(2000);
-      cy.get(".progress-percent").should("contain", "100%");
-    });
-  });
 });

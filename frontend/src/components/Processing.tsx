@@ -41,10 +41,18 @@ const Processing: React.FC<ProcessingProps> = ({
   const [currentProgress, setCurrentProgress] = useState(0);
   const [isCompleted, setIsCompleted] = useState(false);
 
+  const getStepDuration = (stepIndex: number) => {
+    if (stepIndex < 4) return 1000;
+    if (stepIndex < 6) return 2000;
+    return 1000;
+  };
+
   useEffect(() => {
     if (isCompleted) return;
     
-    const stepInterval = setInterval(() => {
+    const currentDuration = getStepDuration(currentStepIndex);
+    
+    const stepTimeout = setTimeout(() => {
       setCurrentStepIndex(prev => {
         const nextIndex = prev + 1;
         
@@ -60,7 +68,6 @@ const Processing: React.FC<ProcessingProps> = ({
           return prev;
         }
         
-
         setSteps(current => 
           current.map((step, index) => {
             if (index < nextIndex) {
@@ -72,26 +79,29 @@ const Processing: React.FC<ProcessingProps> = ({
             }
           })
         );
-
+        
         setCurrentProgress(0);
         return nextIndex;
       });
-    }, 3000);
+    }, currentDuration);
 
-    return () => clearInterval(stepInterval);
-  }, [isCompleted]);
+    return () => clearTimeout(stepTimeout);
+  }, [currentStepIndex, isCompleted]);
 
   useEffect(() => {
     if (isCompleted) return;
     
     const activeStep = steps.find(step => step.status === 'active');
     if (activeStep) {
+      const currentDuration = getStepDuration(currentStepIndex);
+      const updateInterval = currentDuration / 100;
+      
       const progressInterval = setInterval(() => {
         setCurrentProgress(prev => {
-          const newProgress = prev + 2;
+          const newProgress = prev + 1;
           return newProgress >= 100 ? 100 : newProgress;
         });
-      }, 60);
+      }, updateInterval);
 
       return () => clearInterval(progressInterval);
     }
@@ -113,7 +123,7 @@ const Processing: React.FC<ProcessingProps> = ({
               gaugeSecondaryColor={light ? "rgba(107, 114, 128, 0.12)" : "rgba(59, 130, 246, 0.2)"}
               className="main-progress-bar hide-internal-text"
             />
-            <div className={`progress-text ${light ? 'light' : ''}`}>
+            <div className={`progress-text ${light ? 'light' : ''}`} style={{ transition: 'all 30ms ease-out' }}>
               {Math.round(currentProgress)}
             </div>
           </div>

@@ -32,8 +32,8 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       { type: "module" },
     );
 
-    // Demo mode: 确保Processing能完全展示 (8步骤 * 3秒 = 24秒)
-    const minDisplayTime = 24000; // 24秒
+    // Demo mode: 
+    const minDisplayTime = 10000; // 1*4+2*2+2*1
     const startTime = Date.now();
 
     const timer = setTimeout(async () => {
@@ -44,7 +44,6 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
           const blob = await response.blob();
           const arrayBuffer = await blob.arrayBuffer();
           
-          // 确保至少显示了足够的时间
           const elapsedTime = Date.now() - startTime;
           const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
           
@@ -59,7 +58,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
         console.error("Error loading demo file:", error);
         setIsLoading(false);
       }
-    }, 2000); // 2秒后开始加载
+    }, 500);
 
     worker.onmessage = (e) => {
       const { status, data, error } = e.data;

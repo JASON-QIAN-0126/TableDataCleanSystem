@@ -110,7 +110,7 @@ const MobileTopbar: React.FC<MobileTopbarProps> = ({ light, setLight }) => {
 
         {menuOpen && (
           <div className={`mobile-menu ${light ? "light" : ""}`}>
-            <nav className="mobile-nav">
+            <nav className="mobile-nav">  
               {NAVS.map((nav) => (
                 <Link
                   key={nav.path}
@@ -126,7 +126,9 @@ const MobileTopbar: React.FC<MobileTopbarProps> = ({ light, setLight }) => {
             <div className="mobile-auth-section">
               {typeof setLight === 'function' && (
                 <div className="mobile-switch-container">
-                  <span className={`switch-label ${light ? "light" : ""}`}>Dark Mode</span>
+                  <span className={`switch-label ${light ? "light" : ""}`}>
+                    {light ? "Light" : "Dark"}
+                  </span>
                   <Switch
                     checked={!!light}
                     onChange={() => setLight((v: boolean) => !v)}
