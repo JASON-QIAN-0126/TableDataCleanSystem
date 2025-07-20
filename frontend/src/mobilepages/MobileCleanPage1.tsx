@@ -57,7 +57,7 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
       setTaskId("demo-task-id");
       setIsFinished(true);
       setIsUploading(false);
-    }, 2000);
+    }, 500);
   };
 
   if (isFinished && taskId) {

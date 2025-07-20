@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import SignIn from "../mainpages/SignIn";
 import SignUp from "../mainpages/SignUp";
 import Switch from "../components/Switch";
@@ -26,6 +26,7 @@ interface MobileTopbarProps {
 
 const MobileTopbar: React.FC<MobileTopbarProps> = ({ light, setLight }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -68,6 +69,7 @@ const MobileTopbar: React.FC<MobileTopbarProps> = ({ light, setLight }) => {
     setUser(null);
     setShowUserMenu(false);
     setMenuOpen(false);
+    navigate("/home");
   };
 
   const switchToSignUp = () => {
@@ -146,11 +148,21 @@ const MobileTopbar: React.FC<MobileTopbarProps> = ({ light, setLight }) => {
                         className={`mobile-user-avatar ${light ? "light" : ""}`}
                         onClick={handleAvatarClick}
                       >
-                        {user.avatar === 'default-avatar.png' ? '👤' : user.avatar}
+                        {user.username.charAt(0).toUpperCase()}
                       </div>
                       {showUserMenu && (
                         <div className={`mobile-user-menu ${light ? "light" : ""}`}>
-                          <button className="mobile-logout-button" onClick={handleLogout}>
+                          <Link
+                            to="/profile"
+                            className={`mobile-menu-item ${light ? "light" : ""}`}
+                            onClick={() => {
+                              setShowUserMenu(false);
+                              setMenuOpen(false);
+                            }}
+                          >
+                            Profile
+                          </Link>
+                          <button className={`mobile-menu-item mobile-logout-button ${light ? "light" : ""}`} onClick={handleLogout}>
                             Logout
                           </button>
                         </div>

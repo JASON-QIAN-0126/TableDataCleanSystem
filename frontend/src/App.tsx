@@ -19,6 +19,7 @@ import MobileHomepage from "./mobilepages/MobileHomepage";
 import MobileCleanPage1 from "./mobilepages/MobileCleanPage1";
 import MobileSupport from "./mobilepages/MobileSupport";
 import MobileFeedback from "./mobilepages/MobileFeedback";
+import MobileProfile from "./mobilepages/MobileProfile";
 import "./App.css";
 import Warning from "./mobilepages/warning";
 
@@ -69,6 +70,12 @@ function AppContent() {
     });
   }, []);
 
+  useEffect(() => {
+    if (isMobile) {
+      setLight(true);
+    }
+  }, [isMobile]);
+  
   if (isMobile) {
     return (
       <div className="app-container mobile">
@@ -80,7 +87,7 @@ function AppContent() {
           <Route path="/clean" element={<MobileCleanPage1 light={light} />} />
           <Route path="/support" element={<MobileSupport light={light} />} />
           <Route path="/feedback" element={<MobileFeedback light={light} />} />
-          <Route path="/profile" element={<Profile light={light} />} />
+          <Route path="/profile" element={<MobileProfile light={light} />} />
         </Routes>
         {location.pathname == "/home" && <Writter />}
         {isNarrow && <Warning />}

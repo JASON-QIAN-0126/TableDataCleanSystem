@@ -137,12 +137,14 @@
 .mobile-user-info {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .mobile-username {
   color: #ffffff;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .mobile-username.light {
@@ -157,48 +159,53 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, #4c6ef5, #7048e8);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .mobile-user-avatar.light {
-  background: rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, #3C3F44, #5a5d63);
 }
 
 .mobile-user-avatar:hover {
-  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(76, 110, 245, 0.3);
 }
 
 .mobile-user-avatar.light:hover {
-  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(60, 63, 68, 0.3);
 }
 
 .mobile-user-menu {
   position: absolute;
   top: 100%;
   right: 0;
-  background: rgba(15, 15, 15, 0.9);
+  background: rgba(15, 15, 15, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   padding: 0.5rem;
   margin-top: 0.5rem;
-  min-width: 100px;
+  min-width: 120px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .mobile-user-menu.light {
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.mobile-logout-button {
+.mobile-menu-item {
   background: none;
   border: none;
-  color: #ef4444;
+  color: #ffffff;
   font-weight: 500;
   cursor: pointer;
   padding: 0.5rem;
@@ -206,10 +213,29 @@
   text-align: left;
   border-radius: 4px;
   transition: all 0.3s ease;
+  text-decoration: none;
+  display: block;
+  font-size: 14px;
+}
+
+.mobile-menu-item.light {
+  color: #000000;
+}
+
+.mobile-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu-item.light:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-logout-button {
+  color: #ef4444 !important;
 }
 
 .mobile-logout-button:hover {
-  background: rgba(239, 68, 68, 0.1);
+  background: rgba(239, 68, 68, 0.1) !important;
 }
 
 .mobile-auth-buttons {

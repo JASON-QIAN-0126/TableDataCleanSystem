@@ -1,0 +1,466 @@
+.mobile-form-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 15px;
+  position: relative;
+  z-index: 998;
+}
+
+.mobile-profile-card {
+  width: 100%;
+  max-width: 500px;
+  background-color: #1a182e;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 999;
+  max-height: 85vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.mobile-profile-card.light {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.mobile-profile-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-profile-card::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.mobile-profile-card::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.mobile-profile-card.light::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.mobile-profile-card.light::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.mobile-profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mobile-user-info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-profile-card.light .mobile-user-info-section {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-avatar-container {
+  display: flex;
+  justify-content: center;
+}
+
+.mobile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4c6ef5, #7048e8);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-avatar.light {
+  background: linear-gradient(135deg, #3C3F44, #5a5d63);
+  border: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-user-details {
+  text-align: center;
+  width: 100%;
+}
+
+.mobile-user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.mobile-username {
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mobile-username.light {
+  color: #3C3F44;
+}
+
+.mobile-email {
+  color: #94a3b8;
+  font-size: 14px;
+  margin: 0;
+}
+
+.mobile-email.light {
+  color: #6b7280;
+}
+
+.mobile-edit-btn {
+  background: linear-gradient(135deg, #4c6ef5, #7048e8);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.mobile-edit-btn.light {
+  background: linear-gradient(135deg, #3C3F44, #5a5d63);
+}
+
+.mobile-edit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(76, 110, 245, 0.3);
+}
+
+.mobile-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.mobile-username-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 12px;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+}
+
+.mobile-username-input.light {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: #3C3F44;
+}
+
+.mobile-username-input:focus {
+  outline: none;
+  border-color: #4c6ef5;
+  box-shadow: 0 0 0 2px rgba(76, 110, 245, 0.2);
+}
+
+.mobile-edit-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.mobile-save-btn,
+.mobile-cancel-btn {
+  flex: 1;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mobile-save-btn {
+  background-color: #4868f7;
+  color: white;
+}
+
+.mobile-save-btn.light {
+  background-color: #101415;
+}
+
+.mobile-save-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mobile-cancel-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.mobile-cancel-btn.light {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #3C3F44;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-error-message {
+  background-color: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #ef4444;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.mobile-success-message {
+  background-color: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #10b981;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.mobile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobile-section-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.mobile-section-title.light {
+  color: #3C3F44;
+}
+
+.mobile-history-container {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.mobile-history-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mobile-history-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+}
+
+.mobile-history-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+}
+
+.mobile-no-history {
+  color: #94a3b8;
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+  font-style: italic;
+}
+
+.mobile-no-history.light {
+  color: #6b7280;
+}
+
+.mobile-history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mobile-history-item {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+  transition: all 0.2s ease;
+}
+
+.mobile-history-item.light {
+  background-color: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.mobile-history-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.mobile-history-item.light:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mobile-history-main {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.mobile-file-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-file-name {
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.mobile-file-name.light {
+  color: #3C3F44;
+}
+
+.mobile-record-count {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.mobile-record-count.light {
+  color: #6b7280;
+}
+
+.mobile-history-date {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.mobile-history-date.light {
+  color: #6b7280;
+}
+
+.mobile-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+.mobile-status.completed {
+  background-color: rgba(61, 59, 255, 0.2);
+  color: #3d3bff;
+  border: 1px solid rgba(61, 59, 255, 0.3);
+}
+
+.mobile-status.failed {
+  background-color: rgba(105, 44, 243, 0.2);
+  color: #692cf3;
+  border: 1px solid rgba(105, 44, 243, 0.3);
+}
+
+.mobile-status.light.completed {
+  background-color: rgba(75, 75, 75, 0.1);
+  color: #4b4b4b;
+  border: 1px solid rgba(75, 75, 75, 0.3);
+}
+
+.mobile-status.light.failed {
+  background-color: rgba(122, 134, 147, 0.1);
+  color: #7a8693;
+  border: 1px solid rgba(122, 134, 147, 0.3);
+}
+
+.mobile-form-card.light {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-form-card h2 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 20px;
+}
+
+.mobile-form-card.light h2 {
+  color: #3C3F44;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 380px) {
+  .mobile-form-page-container {
+    padding: 12px;
+    padding-top: 70px;
+  }
+  
+  .mobile-profile-card {
+    padding: 18px;
+    max-width: 95vw;
+  }
+  
+  .mobile-form-card {
+    max-width: 95vw;
+    padding: 22px;
+  }
+  
+  .mobile-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 28px;
+  }
+  
+  .mobile-username {
+    font-size: 20px;
+  }
+}
+
+/* Medium mobile devices */
+@media (min-width: 381px) and (max-width: 480px) {
+  .mobile-profile-card {
+    max-width: 90vw;
+  }
+  
+  .mobile-form-card {
+    max-width: 90vw;
+  }
+} 
