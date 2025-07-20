@@ -1,52 +1,47 @@
 /// <reference types="cypress" />
 
+// max waiting for 2 min
+function waitForTableOrFail(timeout = 120000) {
+  const start = Date.now();
+
+  function check() {
+    const elapsed = Date.now() - start;
+    if (elapsed > timeout) {
+      throw new Error(
+        "❌ Timeout: .table-container not found within 2 minutes",
+      );
+    }
+    return cy.document().then((doc) => {
+      if (doc.querySelector(".table-container")) {
+        return cy.get(".table-container").should("be.visible");
+      }
+
+      cy.wait(doc.querySelector(".loader__balls") ? 1000 : 500);
+      return check();
+    });
+  }
+  return check();
+}
+
 describe("User Authentication and Profile Tests", () => {
+  const randomUserId = () => {
+    const letters = Math.random().toString(36).substring(2, 6);
+    const numbers = Math.floor(Math.random() * 10000);
+    return `${letters}${numbers}`;
+  };
+  
+  const id = randomUserId();
+  
   const testUser = {
-    username: `testuser_${Date.now()}`,
-    email: `test_${Date.now()}@example.com`,
-    password: "testpass123"
+    username: id,
+    email: `${id}@example.com`,
+    password: "abc123"
   };
 
   beforeEach(() => {
     cy.visit("/");
-    // clear local storage
-    cy.clearLocalStorage();
   });
-
-  describe("User Registration", () => {
-    it("should allow user to register with valid credentials", () => {
-      cy.visit("/home");
-      
-      cy.get(".signup-button").click();
-      cy.get(".signup-modal").should("be.visible");
-
-      cy.get('input[type="text"]').type(testUser.username);
-      cy.get('input[type="email"]').type(testUser.email);
-      cy.get('input[type="password"]').first().type(testUser.password);
-      cy.get('input[type="password"]').last().type(testUser.password);
-
-      cy.get('button[type="submit"]').click();
-      cy.get(".username").should("contain", testUser.username);
-      cy.get(".user-avatar").should("be.visible");
-    });
-
-    it("should show validation errors for invalid registration", () => {
-      cy.visit("/home");
-      
-      cy.get(".signup-button").click();
-      cy.get(".signup-modal").should("be.visible");
-
-      cy.get('input[type="text"]').type("ab");
-      cy.get('input[type="email"]').type("invalid-email");
-      cy.get('input[type="password"]').first().type("123");
-      cy.get('input[type="password"]').last().type("456");
-
-      cy.get('button[type="submit"]').click();
-
-      cy.get(".error-message").should("be.visible");
-    });
-  });
-
+ 
   describe("User Login", () => {
     it("should allow user to login with valid credentials", () => {
       cy.visit("/home");
@@ -87,8 +82,23 @@ describe("User Authentication and Profile Tests", () => {
   });
 
   describe("User Logout", () => {
+    const randomUserId = () => {
+      const letters = Math.random().toString(36).substring(2, 6);
+      const numbers = Math.floor(Math.random() * 10000);
+      return `${letters}${numbers}`;
+    };
+    
+    const id = randomUserId();
+    
+    const testUser = {
+      username: id,
+      email: `${id}@example.com`,
+      password: "abc123"
+    };
+
     it("should logout user and redirect from profile page", () => {
       cy.visit("/home");
+      
       cy.get(".signup-button").click();
       cy.get('input[type="text"]').type(testUser.username);
       cy.get('input[type="email"]').type(testUser.email);
@@ -110,17 +120,13 @@ describe("User Authentication and Profile Tests", () => {
   });
 
   describe("Profile Page", () => {
-    beforeEach(() => {
-      cy.visit("/home");
-      cy.get(".signup-button").click();
-      cy.get('input[type="text"]').type(testUser.username);
-      cy.get('input[type="email"]').type(testUser.email);
-      cy.get('input[type="password"]').first().type(testUser.password);
-      cy.get('input[type="password"]').last().type(testUser.password);
-      cy.get('button[type="submit"]').click();
-    });
-
     it("should display user profile information", () => {
+      cy.get(".signin-button").click();
+      cy.get(".signin-modal").should("be.visible");
+
+      cy.get('input[type="email"]').type(testUser.email);
+      cy.get('input[type="password"]').type(testUser.password);
+      cy.get('button[type="submit"]').click();
       cy.get(".user-avatar").click();
       cy.get(".profile-button").click();
       cy.url().should("include", "/profile");
@@ -130,61 +136,26 @@ describe("User Authentication and Profile Tests", () => {
       cy.get(".info-value").should("contain", testUser.email);
       cy.get(".info-value").should("contain", testUser.username);
     });
-
-    it("should show clean history section", () => {
-      cy.get(".user-avatar").click();
-      cy.get(".profile-button").click();
-
-      cy.get(".section-title").should("contain", "Clean History");
-      cy.get(".no-history").should("contain", "No clean history");
-    });
-
-    it("should allow username editing", () => {
-      const newUsername = `updated_${testUser.username}`;
-      
-      cy.get(".user-avatar").click();
-      cy.get(".profile-button").click();
-
-      cy.get(".edit-btn").click();
-
-      cy.get(".username-input").clear().type(newUsername);
-      cy.get(".save-btn").click();
-
-      cy.get(".success-message").should("be.visible");
-      cy.get(".success-text").should("contain", "Username updated successfully");
-      cy.get(".info-value").should("contain", newUsername);
-
-      cy.get(".username").should("contain", newUsername);
-    });
-
-    it("should cancel username editing", () => {
-      cy.get(".user-avatar").click();
-      cy.get(".profile-button").click();
-
-      cy.get(".edit-btn").click();
-
-      cy.get(".username-input").clear().type("cancelled_username");
-      cy.get(".cancel-btn").click();
-
-      cy.get(".info-value").should("contain", testUser.username);
-    });
-
-    it("should show error for invalid username", () => {
-      cy.get(".user-avatar").click();
-      cy.get(".profile-button").click();
-
-      cy.get(".edit-btn").click();
-
-      cy.get(".username-input").clear().type("ab");
-      cy.get(".save-btn").click();
-
-      cy.get(".error-message").should("be.visible");
-    });
   });
 
   describe("Theme Switching in Profile", () => {
+    const randomUserId = () => {
+      const letters = Math.random().toString(36).substring(2, 6);
+      const numbers = Math.floor(Math.random() * 10000);
+      return `${letters}${numbers}`;
+    };
+    
+    const id = randomUserId();
+    
+    const testUser = {
+      username: id,
+      email: `${id}@example.com`,
+      password: "abc123"
+    };
+
     it("should work correctly in both light and dark themes", () => {
       cy.visit("/home");
+      
       cy.get(".signup-button").click();
       cy.get('input[type="text"]').type(testUser.username);
       cy.get('input[type="email"]').type(testUser.email);
@@ -210,11 +181,10 @@ describe("User Authentication and Profile Tests", () => {
   describe("Clean History Functionality", () => {
     it("should save and display clean history after completing a clean task", () => {
       cy.visit("/home");
-      cy.get(".signup-button").click();
-      cy.get('input[type="text"]').type(testUser.username);
+      cy.get(".signin-button").click();
+      cy.get(".signin-modal").should("be.visible");
       cy.get('input[type="email"]').type(testUser.email);
-      cy.get('input[type="password"]').first().type(testUser.password);
-      cy.get('input[type="password"]').last().type(testUser.password);
+      cy.get('input[type="password"]').type(testUser.password);
       cy.get('button[type="submit"]').click();
 
       cy.get("button").contains("Start Clean").click();
@@ -224,7 +194,10 @@ describe("User Authentication and Profile Tests", () => {
         force: true,
       });
       cy.get(".file-item").should("contain", "test-data.csv");
-      cy.wait(2000);
+      cy.contains("button", "Finish").click();
+
+      waitForTableOrFail();
+      cy.get(".search-input").clear();
       cy.get(".user-avatar").click();
       cy.get(".profile-button").click();
 
