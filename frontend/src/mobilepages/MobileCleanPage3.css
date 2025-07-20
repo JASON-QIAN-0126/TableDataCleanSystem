@@ -205,7 +205,6 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
-/* 适配更小的屏幕 */
 @media (max-width: 360px) {
   .mobile-clean3-container {
     padding: 70px 12px 30px 12px;

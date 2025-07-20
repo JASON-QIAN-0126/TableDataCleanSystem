@@ -46,12 +46,10 @@ const MobileHomepage: React.FC<{ light?: boolean }> = ({ light = true }) => {
       )}
       
       <main className="mobile-homepage-main" style={{ position: "relative", zIndex: 3 }}>
-        {/* 标题区域 */}
         <div className="mobile-title-section">
           {light ? <TitleLight /> : <Title light={light} />}
         </div>
 
-        {/* Start Clean 按钮 */}
         <div className="mobile-button-section">
           <div className="relative inline-block p-0.5 rounded-[18px]">
             <BorderBeam
@@ -86,7 +84,6 @@ const MobileHomepage: React.FC<{ light?: boolean }> = ({ light = true }) => {
           </div>
         </div>
 
-        {/* Feature 组件垂直排列 */}
         <div className="mobile-features-section">
           <MobileFeature 
             icon={iconf1} 

@@ -22,11 +22,11 @@ import "./App.css";
 import Warning from "./mobilepages/warning";
 
 function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 450);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 450);
+      setIsMobile(window.innerWidth < 600);
     };
 
     window.addEventListener('resize', handleResize);
@@ -51,7 +51,7 @@ function useIsNarrowScreen(threshold = 1050) {
 }
 
 function AppContent() {
-  const [light, setLight] = useState(true);
+  const [light, setLight] = useState(false);
   const location = useLocation();
   const isMobile = useIsMobile();
   const isNarrow = useIsNarrowScreen(1050);

@@ -56,7 +56,6 @@
   line-height: 1.1;
 }
 
-/* 媒体查询确保在更小的屏幕上也能正常显示 */
 @media (max-width: 360px) {
   .mobile-feature {
     padding: 12px 16px;

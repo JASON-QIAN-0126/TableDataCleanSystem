@@ -109,12 +109,12 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
         setProgress(0);
         const timer = setInterval(() => {
           setProgress((oldProgress: number) => {
-            if (oldProgress >= 100) {
+            if (oldProgress >= 10) {
               clearInterval(timer);
-              return 100;
+              return 10;
             }
             const diff = Math.random() * 30;
-            return Math.min(oldProgress + diff, 100);
+            return Math.min(oldProgress + diff, 10);
           });
         }, 100);
       }

@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding: 80px 20px 120px 20px; /* 给顶部和底部留出足够空间 */
+  padding: 80px 20px 120px 20px;
   box-sizing: border-box;
 }
 
@@ -40,7 +40,6 @@
   max-width: 350px;
 }
 
-/* 确保在小屏幕上也能正常显示 */
 @media (max-width: 380px) {
   .mobile-homepage-main {
     padding: 70px 16px 100px 16px;
@@ -60,7 +59,6 @@
   }
 }
 
-/* 适配非常小的屏幕 */
 @media (max-width: 320px) {
   .mobile-homepage-main {
     padding: 60px 12px 80px 12px;

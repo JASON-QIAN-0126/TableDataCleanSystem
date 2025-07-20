@@ -187,4 +187,50 @@ describe("Complete Application Integration Tests", () => {
     cy.get(".fade-in").should("be.visible");
     cy.get(".form-card").should("have.css", "position", "relative");
   });
+
+  it("should display background correcly", () => {
+    cy.visit("/home");
+
+    cy.get(".homepage-container")
+    .invoke("css", "background-image")
+    .should("include", "Background");
+
+    cy.get(".nav-link").contains("Clean").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.get(".nav-link").contains("Support").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.get(".nav-link").contains("Feedback").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.visit("/home");
+
+    cy.get(".neon-switch").click();
+
+    cy.get(".homepage-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l");
+
+    cy.get(".nav-link").contains("Clean").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
+
+    cy.get(".nav-link").contains("Support").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
+
+    cy.get(".nav-link").contains("Feedback").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
+  });
 });

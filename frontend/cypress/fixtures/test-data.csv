@@ -1,6 +1,8 @@
-name,email,company,role
-John Doe,john.doe@example.com,Company A,Manager
-Jane Smith,jane.smith@example.com,Company B,Developer
-Bob Johnson,bob.johnson@example.com,Company C,Designer
-Alice Brown,alice.brown@example.com,Company A,Analyst
-Charlie Wilson,charlie.wilson@example.com,Company B,Director 
+name,email,company,role,pet
+John Doe,john.doe@example.com,Company A,Manager,Cat
+Jane Smith,jane.smith@example.com,Company B,Developer,Dog
+Bob Wilson,1@123123123.com,Wuesi Ct.,,Bird
+Bob Johnson,bob.johnson@example.com,Company C,Designer,Dog
+Alice Brown,alice.brown@example.com,Company A,Analyst,
+Charlie Wilson,charlie.wilson@example.com,Company B,Director,Lizard
+Ken,1@1,AA bus,Designer,

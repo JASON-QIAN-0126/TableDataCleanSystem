@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 40px;
-  background-color: transparent !important;
   background: transparent !important;
   width: 100%;
   box-sizing: border-box;
@@ -12,7 +11,6 @@
   left: 0;
   z-index: 1000;
   min-height: 73px;
-  position: relative;
 }
 
 @media (max-height: 1079px) {

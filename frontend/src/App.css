@@ -20,13 +20,11 @@ body,
 }
 
 
-/* 移动端媒体查询 */
-@media (max-width: 450px) {
+@media (max-width: 700px) {
   .app-container {
     overflow-x: hidden;
   }
   
-  /* 确保移动端时隐藏桌面端组件 */
   .app-container.desktop {
     display: none;
   }

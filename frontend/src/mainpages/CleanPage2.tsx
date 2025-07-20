@@ -21,6 +21,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
   const [filteredData, setFilteredData] = useState<RowData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [showPage3, setShowPage3] = useState(false);
+  const [hideInvalidEmails, setHideInvalidEmails] = useState(false);
 
   useEffect(() => {
     if (!taskId) return;
@@ -31,7 +32,10 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       { type: "module" },
     );
 
-    // Demo mode: load example file after 10 seconds
+    // Demo mode: 确保Processing能完全展示 (8步骤 * 3秒 = 24秒)
+    const minDisplayTime = 24000; // 24秒
+    const startTime = Date.now();
+
     const timer = setTimeout(async () => {
       try {
         console.log("Loading demo file...");
@@ -39,7 +43,14 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
         if (response.ok) {
           const blob = await response.blob();
           const arrayBuffer = await blob.arrayBuffer();
-          worker.postMessage(arrayBuffer);
+          
+          // 确保至少显示了足够的时间
+          const elapsedTime = Date.now() - startTime;
+          const remainingTime = Math.max(0, minDisplayTime - elapsedTime);
+          
+          setTimeout(() => {
+            worker.postMessage(arrayBuffer);
+          }, remainingTime);
         } else {
           console.error("Failed to load demo file");
           setIsLoading(false);
@@ -48,7 +59,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
         console.error("Error loading demo file:", error);
         setIsLoading(false);
       }
-    }, 10000); // 10 seconds loading
+    }, 2000); // 2秒后开始加载
 
     worker.onmessage = (e) => {
       const { status, data, error } = e.data;
@@ -77,18 +88,29 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
     };
   }, [taskId]);
 
-  const handleSearch = () => {
-    if (!searchTerm) {
-      setFilteredData(data);
-      return;
-    }
+  useEffect(() => {
+    handleSearch();
+  }, [hideInvalidEmails]);
 
-    const lowercasedSearchTerm = searchTerm.toLowerCase();
-    const filtered = data.filter((row) =>
-      Object.values(row).some((value) =>
-        String(value).toLowerCase().includes(lowercasedSearchTerm),
-      ),
-    );
+  const handleSearch = () => {
+    let filtered = data;
+    
+    if (searchTerm) {
+      const lowercasedSearchTerm = searchTerm.toLowerCase();
+      filtered = filtered.filter((row) =>
+        Object.values(row).some((value) =>
+          String(value).toLowerCase().includes(lowercasedSearchTerm),
+        ),
+      );
+    }
+    
+    if (hideInvalidEmails) {
+      filtered = filtered.filter((row) => {
+        const emailValidation = row['filter_email_validation'];
+        return emailValidation === 'Legal' || emailValidation === 0;
+      });
+    }
+    
     setFilteredData(filtered);
   };
 
@@ -128,7 +150,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
   };
 
   if (showPage3) {
-    return <CleanPage3 light={light} />;
+    return <CleanPage3 light={light} taskId={taskId} />;
   }
 
   return (
@@ -157,7 +179,7 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       />
 
       {isLoading ? (
-        <Processing light={light} />
+        <Processing light={light} taskId={taskId} />
       ) : (
         <>
           <div className="search-bar-container">
@@ -203,8 +225,21 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
             </table>
           </div>
           <div className="download-button-container">
+            <div className={`checkbox-container ${light ? "light" : ""}`}>
+              <label className={`checkbox-label ${light ? "light" : ""}`}>
+                <input
+                  type="checkbox"
+                  checked={hideInvalidEmails}
+                  onChange={(e) => setHideInvalidEmails(e.target.checked)}
+                  className="checkbox-input"
+                />
+                <span className={`checkbox-text ${light ? "light" : ""}`}>
+                  Hide invalid email
+                </span>
+              </label>
+            </div>
             <button
-              className={`download-button ${light ? "light" : ""}`}
+              className={`download-button-1 ${light ? "light" : ""}`}
               onClick={handleDownload}
             >
               Download
