@@ -81,6 +81,8 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       worker.terminate();
     };
 
+    saveCleanHistory();
+    
     return () => {
       clearTimeout(timer);
       worker.terminate();
@@ -145,6 +147,42 @@ const CleanPage2: React.FC<CleanPage2Props> = ({ taskId, light }) => {
       }
     } catch (error) {
       console.error("Error downloading file:", error);
+    }
+  };
+
+  const saveCleanHistory = () => {
+    try {
+      const user = localStorage.getItem("user");
+      if (!user) return;
+
+      const historyRecord = {
+        id: `clean_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        date: new Date().toISOString(),
+        fileName: "Demo Data File",
+        recordsCount: data.length,
+        status: 'completed' as const
+      };
+
+      const existingHistory = localStorage.getItem("cleanHistory");
+      let history = [];
+      
+      if (existingHistory) {
+        try {
+          history = JSON.parse(existingHistory);
+        } catch (error) {
+          console.error("Error parsing existing history:", error);
+        }
+      }
+
+      history.unshift(historyRecord);
+      
+      if (history.length > 10) {
+        history = history.slice(0, 10);
+      }
+
+      localStorage.setItem("cleanHistory", JSON.stringify(history));
+    } catch (error) {
+      console.error("Error saving clean history:", error);
     }
   };
 

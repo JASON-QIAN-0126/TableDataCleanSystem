@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Topbar.css";
 import SignIn from "../mainpages/SignIn";
 import SignUp from "../mainpages/SignUp";
@@ -26,6 +26,7 @@ interface TopbarProps {
 
 const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [showSignIn, setShowSignIn] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState<User | null>(null);
@@ -63,6 +64,11 @@ const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
+    setShowUserMenu(false);
+  };
+
+  const handleProfileClick = () => {
+    navigate("/profile");
     setShowUserMenu(false);
   };
 
@@ -116,6 +122,9 @@ const Topbar: React.FC<TopbarProps> = ({ light, setLight }) => {
                   onClick={(e) => e.stopPropagation()}
                   tabIndex={0}
                 >
+                  <button className="profile-button" onClick={handleProfileClick}>
+                    Profile
+                  </button>
                   <button className="logout-button" onClick={handleLogout}>
                     Logout
                   </button>

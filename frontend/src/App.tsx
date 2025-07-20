@@ -11,6 +11,7 @@ import Homepage from "./mainpages/Homepage";
 import CleanPage1 from "./mainpages/CleanPage1";
 import Support from "./mainpages/Support";
 import Feedback from "./mainpages/Feedback";
+import Profile from "./mainpages/Profile";
 import Writter from "./components/Writter";
 import Logo from "./components/Logo";
 import MobileTopbar from "./mobilepages/MobileTopbar";
@@ -56,6 +57,18 @@ function AppContent() {
   const isMobile = useIsMobile();
   const isNarrow = useIsNarrowScreen(1050);
 
+  useEffect(() => {
+    const preloadImages = [
+      '/background_l.webp',
+      '/background_l2.webp'
+    ];
+
+    preloadImages.forEach(src => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
   if (isMobile) {
     return (
       <div className="app-container mobile">
@@ -67,6 +80,7 @@ function AppContent() {
           <Route path="/clean" element={<MobileCleanPage1 light={light} />} />
           <Route path="/support" element={<MobileSupport light={light} />} />
           <Route path="/feedback" element={<MobileFeedback light={light} />} />
+          <Route path="/profile" element={<Profile light={light} />} />
         </Routes>
         {location.pathname == "/home" && <Writter />}
         {isNarrow && <Warning />}
@@ -84,6 +98,7 @@ function AppContent() {
         <Route path="/clean" element={<CleanPage1 light={light} />} />
         <Route path="/support" element={<Support light={light} />} />
         <Route path="/feedback" element={<Feedback light={light} />} />
+        <Route path="/profile" element={<Profile light={light} />} />
       </Routes>
       {location.pathname == "/home" && <Writter />}
       {isNarrow && <Warning />}

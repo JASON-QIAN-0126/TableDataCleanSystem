@@ -206,6 +206,89 @@ router.get('/me', ensureDbReady, authenticateToken, (req, res) => {
   });
 });
 
+// Update user profile
+router.put('/update-profile', ensureDbReady, authenticateToken, [
+  body('username')
+    .optional()
+    .isLength({ min: 3, max: 20 })
+    .withMessage('Username must be between 3 and 20 characters')
+    .matches(/^[a-zA-Z0-9_]+$/)
+    .withMessage('Username can only contain letters, numbers, and underscores')
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Validation failed',
+        details: errors.array() 
+      });
+    }
+
+    const { username } = req.body;
+    const userId = req.user.id;
+
+    if (!username) {
+      return res.status(400).json({
+        success: false,
+        error: 'Username is required'
+      });
+    }
+
+    // Check if username is already taken by another user
+    db.get('SELECT id FROM users WHERE username = ? AND id != ?', [username, userId], (err, existingUser) => {
+      if (err) {
+        console.error('Database error:', err);
+        return res.status(500).json({ 
+          success: false,
+          error: 'Database error' 
+        });
+      }
+      
+      if (existingUser) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Username already taken' 
+        });
+      }
+
+      // Update username
+      db.run('UPDATE users SET username = ? WHERE id = ?', [username, userId], function(err) {
+        if (err) {
+          console.error('Database error:', err);
+          return res.status(500).json({ 
+            success: false,
+            error: 'Database error' 
+          });
+        }
+
+        // Get updated user data
+        db.get('SELECT id, username, email, avatar FROM users WHERE id = ?', [userId], (err, user) => {
+          if (err) {
+            console.error('Database error:', err);
+            return res.status(500).json({ 
+              success: false,
+              error: 'Database error' 
+            });
+          }
+
+          res.json({
+            success: true,
+            message: 'Profile updated successfully',
+            user
+          });
+        });
+      });
+    });
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ 
+      success: false,
+      error: 'Server error' 
+    });
+  }
+});
+
 // Logout (client-side token removal, but we can add server-side blacklist if needed)
 router.post('/logout', ensureDbReady, authenticateToken, (req, res) => {
   res.json({
