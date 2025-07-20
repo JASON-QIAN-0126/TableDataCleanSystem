@@ -19,13 +19,15 @@ const Homepage: React.FC<{ light?: boolean }> = ({ light = true }) => {
     navigate("/clean");
   };
 
+  console.log("VITE_API_URL =", JSON.stringify(import.meta.env.VITE_API_URL));
+
   return (
     <div
       className="homepage-container"
       style={{
         backgroundImage: light
-          ? "url('/background_l.png')"
-          : "url('/Background.png')",
+          ? "url('/background_l.webp')"
+          : "url('/Background.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

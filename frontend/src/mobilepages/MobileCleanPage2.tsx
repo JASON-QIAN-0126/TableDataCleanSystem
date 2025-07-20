@@ -93,8 +93,8 @@ const MobileCleanPage2: React.FC<MobileCleanPage2Props> = ({ taskId, light }) =>
       className={`mobile-clean2-container ${light ? "light" : ""}`}
       style={{
         backgroundImage: light
-          ? "url('/background_l.png')"
-          : "url('/Background.png')",
+          ? "url('/background_l.webp')"
+          : "url('/Background.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

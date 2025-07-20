@@ -18,7 +18,7 @@ const Support: React.FC<{ light?: boolean }> = ({ light }) => {
       style={
         light
           ? {
-              backgroundImage: "url('/background_l2.png')",
+              backgroundImage: "url('/background_l2.webp')",
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",

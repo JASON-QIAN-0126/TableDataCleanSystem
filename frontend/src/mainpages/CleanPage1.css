@@ -6,7 +6,7 @@
   height: 100vh;
   padding-top: 60px;
   box-sizing: border-box;
-  background-image: url("../assets/Background2.png");
+  background-image: url("/Background2.webp");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

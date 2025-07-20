@@ -69,8 +69,8 @@ const MobileCleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
       className={`mobile-clean-container ${light ? "light" : ""}`}
       style={{
         backgroundImage: light
-          ? "url('/background_l.png')"
-          : "url('/Background.png')",
+          ? "url('/background_l.webp')"
+          : "url('/Background.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

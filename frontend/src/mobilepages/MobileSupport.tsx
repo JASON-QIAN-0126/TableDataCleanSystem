@@ -31,8 +31,8 @@ const MobileSupport: React.FC<{ light?: boolean }> = ({ light }) => {
         className={`mobile-support-container ${light ? "light" : ""}`}
         style={{
           backgroundImage: light
-            ? "url('/background_l2.png')"
-            : "url('/Background.png')",
+            ? "url('/background_l2.webp')"
+            : "url('/Background.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -75,8 +75,8 @@ const MobileSupport: React.FC<{ light?: boolean }> = ({ light }) => {
       className={`mobile-support-container ${light ? "light" : ""}`}
       style={{
         backgroundImage: light
-          ? "url('/background_l2.png')"
-          : "url('/Background.png')",
+          ? "url('/background_l2.webp')"
+          : "url('/Background.webp')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
