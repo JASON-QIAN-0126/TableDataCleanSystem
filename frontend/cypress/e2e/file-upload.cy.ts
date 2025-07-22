@@ -78,8 +78,14 @@ describe("File Upload and Data Cleaning", () => {
       cy.get('input[type="file"]').selectFile(csvPath, { force: true });
     });
 
-    it("enter & clear keywords", () => {
-      cy.get(".keywords-input").type("email").clear().should("have.value", "");
+    it("enter keyword and description, then add", () => {
+      cy.get(".keyword-input").type("industry");
+      cy.get(".description-input").type("users industry");
+  
+      cy.get(".add-keyword-btn").click();
+  
+      cy.get(".keyword-cell").should("contain.text", "industry");
+      cy.get(".description-cell").should("contain.text", "users industry");
     });
   });
 
@@ -95,6 +101,17 @@ describe("File Upload and Data Cleaning", () => {
       cy.get(".preview-btn").click();
       cy.get(".preview-modal").should("have.class", "light");
       cy.get(".close-btn").click();
+    });
+  });
+
+  describe("Animation and Visual Effects", () => {
+    beforeEach(() => cy.visit("/clean"));
+
+    it("progress bar animates", () => {
+      cy.get('input[type="file"]').selectFile(csvPath, { force: true });
+      cy.get(".progress-bar").should("be.visible");
+      cy.wait(2000);
+      cy.get(".progress-percent").should("contain", "100%");
     });
   });
 });

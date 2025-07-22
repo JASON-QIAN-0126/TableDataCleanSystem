@@ -31,7 +31,8 @@ describe("Complete Clean Workflow", () => {
       force: true,
     });
     cy.get(".file-item").should("contain", "test-data.csv");
-    // cy.get(".keywords-input").type("pet");
+    cy.get(".keyword-input").type("pet");
+    cy.get(".add-keyword-btn").click();
     cy.contains("button", "Finish").click();
 
     waitForTableOrFail();
@@ -61,14 +62,14 @@ describe("Complete Clean Workflow", () => {
     cy.get(".search-input").type("John");
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("contain", "John Doe");
-    // cy.get(".search-input").type("pet");
-    // cy.contains("button", "Search").click();
-    // cy.get("tbody tr").should("contain", "pet");
+
+    cy.get("thead th").contains(/pet/i).should("exist");
+
     cy.get(".search-input").clear();
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("have.length.at.least", 2);
 
-    cy.contains(".download-button-1", "Download").click();
+    cy.contains(".download-button", "Download").click();
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");
     cy.get(".download-section").should("exist");
@@ -80,6 +81,8 @@ describe("Complete Clean Workflow", () => {
       force: true,
     });
     cy.get(".file-item").should("contain", "test-data.csv");
+    cy.get(".keyword-input").type("pet");
+    cy.get(".add-keyword-btn").click();
     cy.contains("button", "Finish").click();
 
     waitForTableOrFail();
@@ -87,6 +90,8 @@ describe("Complete Clean Workflow", () => {
     cy.contains("label", "Hide invalid email").find('input[type="checkbox"]').check({ force: true });
     cy.wait(500);
 
+    cy.get("thead th").contains(/pet/i).should("exist");
+    
     cy.get("tbody tr").each(($row) => {
     cy.wrap($row)
       .should("not.contain", "Format Error")
@@ -110,11 +115,51 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("contain", "John Doe");
 
-    cy.contains(".download-button-1", "Download").click();
+    cy.contains(".download-button", "Download").click();
     cy.get(".clean-page3-title").should("have.class", "light");
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");
     cy.get(".download-section").should("exist");
+  });
+
+  it("handles workflow with multiple file uploads", () => {
+    cy.get('input[type="file"]').selectFile(
+      ["cypress/fixtures/test-data.csv", "cypress/fixtures/test-data.csv"],
+      { force: true },
+    );
+    cy.get(".file-item").should("have.length", 2);
+    cy.contains("button", "Finish").click();
+
+    waitForTableOrFail(120000);
+
+    cy.contains("label", "Hide invalid email").find('input[type="checkbox"]').check({ force: true });
+    cy.wait(500);
+
+    cy.get("tbody tr").each(($row) => {
+    cy.wrap($row)
+      .should("not.contain", "Format Error")
+      .and("not.contain", "invalid");
+    });
+
+    cy.contains("label", "Hide invalid email")
+    .find('input[type="checkbox"]')
+    .uncheck({ force: true });
+
+    cy.wait(500);
+    cy.get("tbody tr").then(($rows) => {
+      const found = [...$rows].some((row) => {
+        const text = row.innerText;
+        return text.includes("Format Error") || text.includes("invalid");
+      });
+      expect(found).to.be.true;
+    });
+
+    cy.get(".search-input").type("John");
+    cy.contains("button", "Search").click();
+    cy.get("tbody tr").should("contain", "John Doe");
+
+    cy.contains(".download-button", "Download").click();
+    cy.get(".clean-page3-title").should("be.visible");
   });
 
   it("handles workflow error scenarios", () => {
@@ -135,7 +180,7 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("have.length.at.least", 1);
 
-    cy.contains(".download-button-1", "Download").click();
+    cy.contains(".download-button", "Download").click();
     cy.get(".clean-page3-title").should("be.visible");
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");

@@ -34,8 +34,13 @@ describe("Complete Application Integration Tests", () => {
     cy.get(".preview-modal-content th").should("contain", "name");
     cy.get(".close-btn").click();
 
-    cy.get(".keywords-input").type("email, name, company");
+    cy.get(".keyword-input").type("industry");
+    cy.get(".description-input").type("users industry");
 
+    cy.get(".add-keyword-btn").click();
+
+    cy.get(".keyword-cell").should("contain.text", "industry");
+    cy.get(".description-cell").should("contain.text", "users industry");
     cy.get(".nav-link").contains("Support").click();
     cy.url().should("include", "/support");
 
@@ -109,20 +114,30 @@ describe("Complete Application Integration Tests", () => {
       force: true,
     });
 
-    cy.get(".keywords-input").type("test keywords");
+    cy.get(".keyword-input").type("industry");
+    cy.get(".description-input").type("users industry");
+
+    cy.get(".add-keyword-btn").click();
+
+    cy.get(".keyword-cell").should("contain.text", "industry");
+    cy.get(".description-cell").should("contain.text", "users industry");
 
     cy.get(".neon-switch").click();
 
     cy.get(".file-item").should("contain", "test-data.csv");
-    cy.get(".keywords-input").should("have.value", "test keywords");
 
     cy.get(".clean-card").should("have.class", "light");
-    cy.get(".keywords-input").should("have.class", "light");
 
     cy.get(".neon-switch").click();
 
     cy.get(".file-item").should("contain", "test-data.csv");
-    cy.get(".keywords-input").should("have.value", "test keywords");
+    cy.get(".keyword-input").type("industry");
+    cy.get(".description-input").type("users industry");
+
+    cy.get(".add-keyword-btn").click();
+
+    cy.get(".keyword-cell").should("contain.text", "industry");
+    cy.get(".description-cell").should("contain.text", "users industry");
 
     cy.get(".clean-card").should("not.have.class", "light");
   });
@@ -153,7 +168,13 @@ describe("Complete Application Integration Tests", () => {
     cy.get(".preview-modal-content th").should("contain", "name");
     cy.get(".close-btn").click();
 
-    cy.get(".keywords-input").type("name, email, company, role");
+    cy.get(".keyword-input").type("industry");
+    cy.get(".description-input").type("users industry");
+
+    cy.get(".add-keyword-btn").click();
+
+    cy.get(".keyword-cell").should("contain.text", "industry");
+    cy.get(".description-cell").should("contain.text", "users industry");
 
     cy.get("button").contains("Finish").should("not.be.disabled");
   });
@@ -186,5 +207,51 @@ describe("Complete Application Integration Tests", () => {
 
     cy.get(".fade-in").should("be.visible");
     cy.get(".form-card").should("have.css", "position", "relative");
+  });
+
+  it("should display background correcly", () => {
+    cy.visit("/home");
+
+    cy.get(".homepage-container")
+    .invoke("css", "background-image")
+    .should("include", "Background");
+
+    cy.get(".nav-link").contains("Clean").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.get(".nav-link").contains("Support").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.get(".nav-link").contains("Feedback").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "Background2");
+
+    cy.visit("/home");
+
+    cy.get(".neon-switch").click();
+
+    cy.get(".homepage-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l");
+
+    cy.get(".nav-link").contains("Clean").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
+
+    cy.get(".nav-link").contains("Support").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
+
+    cy.get(".nav-link").contains("Feedback").click();
+    cy.get(".form-page-container")
+    .invoke("css", "background-image")
+    .should("include", "background_l2");
   });
 });
