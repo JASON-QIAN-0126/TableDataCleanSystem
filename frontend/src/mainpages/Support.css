@@ -95,36 +95,71 @@
   resize: vertical;
 }
 
-.submit-btn {
-  display: block;
-  width: 100%;
-  margin-top: 24px;
-  background-color: #007aff;
-  color: #fff;
+.submit-btn-fly{
+  font-family: inherit;
+  font-size: 20px;
+  background: royalblue;
+  color: white;
+  padding: 0.7em 1em;
+  padding-left: 0.9em;
+  display: flex;
+  align-items: center;
   border: none;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 18px;
-  font-weight: 600;
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.2s;
   cursor: pointer;
-  transition: background-color 0.2s;
 }
 
-.submit-btn:hover {
-  background: #3d3bff;
-  color: #fff;
-  box-shadow: 0 2px 12px rgba(61, 59, 255, 0.12);
+
+.submit-btn-fly span {
+  display: block;
+  margin-left: 0.3em;
+  transition: all 0.3s ease-in-out;
 }
 
-.submit-btn.light {
+.submit-btn-fly svg {
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.submit-btn-fly:hover .svg-wrapper {
+  animation: fly-1 0.6s ease-in-out infinite alternate;
+}
+
+.submit-btn-fly:hover svg {
+  transform: translateX(1.2em) rotate(45deg) scale(1.1);
+}
+
+.submit-btn-fly:hover span {
+  transform: translateX(5em);
+}
+
+.submit-btn-fly:active {
+  transform: scale(0.95);
+}
+
+
+.submit-btn-fly.light {
   background-color: #0c0c0c;
   color: #fff;
 }
 
-.submit-btn.light:hover {
+.submit-btn-fly.light:hover {
   background: #4b4b4b;
   color: #fff;
   box-shadow: 0 2px 12px rgba(108, 117, 125, 0.3);
+}
+
+@keyframes fly-1 {
+  from {
+    transform: translateY(0.1em);
+  }
+
+  to {
+    transform: translateY(-0.1em);
+  }
 }
 
 .thank-you-message {

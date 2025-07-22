@@ -5,17 +5,28 @@ import CleanPage2 from "./CleanPage2";
 import { BorderBeam } from "../components/magicui/border-beam";
 import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
+import backgroundImage from "../assets/background_l2.png";
+import { CustomTooltip } from "../components/Tooltip";
 
 interface FileWithId {
   id: string;
   file: File;
 }
 
+interface KeywordItem {
+  id: string;
+  keyword: string;
+  description: string;
+}
+
 const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
   const [files, setFiles] = useState<FileWithId[]>([]);
   const [progress, setProgress] = useState(0);
   const [previewFile, setPreviewFile] = useState<File | null>(null);
-  const [extractWords, setExtractWords] = useState<string>("");
+  const [keywordInput, setKeywordInput] = useState<string>("");
+  const [descriptionInput, setDescriptionInput] = useState<string>("");
+  const [keywordItems, setKeywordItems] = useState<KeywordItem[]>([]);
+  const [enhanceClean, setEnhanceClean] = useState<boolean>(false);
   const [isFinished, setIsFinished] = useState(false);
   const [duplicateWarning, setDuplicateWarning] = useState<string>("");
   const [duplicateFiles, setDuplicateFiles] = useState<File[]>([]);
@@ -28,36 +39,21 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
     fileInputRef.current?.click();
   };
 
-  const handleFinishClick = async () => {
-    if (files.length === 0) {
-      setUploadError("Please select at least one file to upload.");
-      return;
+  const handleAddKeyword = () => {
+    if (keywordInput.trim()) {
+      const newKeywordItem: KeywordItem = {
+        id: `keyword-${Date.now()}-${Math.random()}`,
+        keyword: keywordInput.trim(),
+        description: descriptionInput.trim(),
+      };
+      setKeywordItems(prev => [...prev, newKeywordItem]);
+      setKeywordInput("");
+      setDescriptionInput("");
     }
+  };
 
-    setIsUploading(true);
-    setUploadError("");
-
-    console.log(files);
-    console.log(extractWords);
-
-    // Demo mode: simulate processing and jump to CleanPage2
-    setTimeout(() => {
-      setTaskId("demo-task-id");
-      setIsFinished(true);
-      setIsUploading(false);
-    }, 1000);
-
-    // In real mode, you would send the request with authentication
-    // const token = localStorage.getItem("token");
-    // if (token) {
-    //   const response = await fetch("http://localhost:8000/api/upload", {
-    //     method: "POST",
-    //     headers: {
-    //       "Authorization": `Bearer ${token}`
-    //     },
-    //     body: formData,
-    //   });
-    // }
+  const handleDeleteKeyword = (id: string) => {
+    setKeywordItems(prev => prev.filter(item => item.id !== id));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -166,8 +162,81 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
     clearWarning();
   };
 
+  const handleFinishClick = async () => {
+    if (files.length === 0) {
+      setUploadError("Please select at least one file to upload.");
+      return;
+    }
+
+    setIsUploading(true);
+    setUploadError("");
+
+    console.log(files);
+    console.log(keywordItems);
+    console.log("Enhance Clean:", enhanceClean);
+
+    const formData = new FormData();
+
+    files.forEach(({ file }: FileWithId) => {
+      formData.append("files", file);
+    });
+
+    // handle keywords data
+    if (keywordItems.length > 0) {
+      const extraArray = keywordItems.map(item => ({
+        name: item.keyword,
+        description: item.description || null
+      }));
+      formData.append("extra", JSON.stringify(extraArray));
+    } else {
+      formData.append("extra", "[]");
+    }
+
+    formData.append("enhancement", enhanceClean.toString());
+
+    // backend may not ready need to retry
+    const tryUpload = async (retries = 4): Promise<void> => {
+      try {
+        const simulateFetch = (): Promise<any> => {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              const success = true;
+              if (success) {
+                resolve({ ok: true, json: async () => ({ task_id: "demo-task-id" }) });
+              } else {
+                resolve({ ok: false, status: 500, statusText: "Internal Server Error" });
+              }
+            }, 300);
+          });
+        };
+    
+        const response = await simulateFetch();
+    
+        if (!response.ok) {
+          throw new Error(`Upload failed: ${response.status} ${response.statusText}`);
+        }
+    
+        const result = await response.json();
+        setTaskId(result.task_id);
+        setIsFinished(true);
+      } catch (err) {
+        if (retries > 0) {
+          await new Promise(res => setTimeout(res, 500));
+          await tryUpload(retries - 1);
+        } else {
+          console.error("Upload failed", err);
+          setUploadError(err instanceof Error ? err.message : "Upload failed");
+        }
+      }
+    };
+
+    await tryUpload();
+
+    setIsUploading(false);
+  };
+
   // console.log(files);
-  // console.log(extractWords);
+  // console.log(keywordItems);
 
   return (
     <div
@@ -175,7 +244,7 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
       style={
         light
           ? {
-              backgroundImage: "url('/background_l2.webp')",
+              backgroundImage: `url(${backgroundImage})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
@@ -323,15 +392,99 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
               </ul>
             </div>
 
+            {/* keywords input area */}
+            <div className={`keywords-section ${light ? "light" : ""}`}>
+              {/* keywords table */}
+              {keywordItems.length > 0 && (
+                <div className={`keywords-table-container ${light ? "light" : ""}`}>
+                  <div className={`keywords-table-header ${light ? "light" : ""}`}>
+                    <span>Keyword</span>
+                    <span>Description (optional)</span>
+                    <span>Action</span>
+                  </div>
+                  <div className={`keywords-table-body ${light ? "light" : ""}`}>
+                    {keywordItems.map((item) => (
+                      <div key={item.id} className={`keyword-row ${light ? "light" : ""}`}>
+                        <span className="keyword-cell">{item.keyword}</span>
+                        <span className="description-cell">{item.description || "-"}</span>
+                        <div className="action-cell">
+                          <button
+                            className={`action-btn-1 delete-btn-1 ${light ? "light" : ""}`}
+                            onClick={() => handleDeleteKeyword(item.id)}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="keywords-input-area">
+                <div className="input-row">
+                  <CustomTooltip 
+                    tooltipText="You don't need to enter 'name', 'email', 'organization' or 'role' — they are extracted by default."
+                    light={light}
+                  >
+                    <input
+                      type="text"
+                      placeholder="Add custom keywords"
+                      className={`keyword-input ${light ? "light" : ""}`}
+                      value={keywordInput}
+                      onChange={(e) => setKeywordInput(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleAddKeyword()}
+                    />
+                  </CustomTooltip>
+                  <input
+                    type="text"
+                    placeholder="Description(optional)"
+                    className={`description-input ${light ? "light" : ""}`}
+                    value={descriptionInput}
+                    onChange={(e) => setDescriptionInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddKeyword()}
+                  />
+                  <button
+                    className={`add-keyword-btn ${light ? "light" : ""}`}
+                    onClick={handleAddKeyword}
+                    disabled={!keywordInput.trim()}
+                  >
+                    ✓
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Enhance clean section */}
             <div className={`card-footer ${light ? "light" : ""}`}>
-              <div className="extract-section">
-                <input
-                  type="text"
-                  placeholder="Enter Keywords to extract..."
-                  className={`keywords-input ${light ? "light" : ""}`}
-                  value={extractWords}
-                  onChange={(e) => setExtractWords(e.target.value)}
-                />
+              <div className="footer-controls">
+                <div className="enhance-section">
+                  <div className="checkbox-container-enhance">
+                    <label className={`checkbox-label-enhance ${light ? "light" : ""}`}>
+                      <CustomTooltip 
+                        tooltipText="If checked, cleaning will take longer time."
+                        light={light}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={enhanceClean}
+                          onChange={(e) => setEnhanceClean(e.target.checked)}
+                          className={`checkbox-input-enhance ${light ? "light" : ""}`}
+                        />
+                      </CustomTooltip>
+                      <CustomTooltip 
+                        tooltipText="If checked, cleaning will take longer time."
+                        light={light}
+                      >
+                        <span 
+                          className={`checkbox-text-enhance ${light ? "light" : ""}`}
+                        >
+                          Enable enhanced cleaning model
+                        </span>
+                      </CustomTooltip>
+                    </label>
+                  </div>
+                </div>
                 <InteractiveHoverButton
                   className={cn("finish-btn group", light ? "light" : "")}
                   onClick={handleFinishClick}

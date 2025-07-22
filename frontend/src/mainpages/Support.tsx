@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import "./Support.css";
 import { ShineBorder } from "../components/magicui/shine-border";
-import { ArrowRight } from "lucide-react";
-import { cn } from "../lib/utils";
 
 const Support: React.FC<{ light?: boolean }> = ({ light }) => {
   const [submitted, setSubmitted] = useState(false);
@@ -62,14 +60,24 @@ const Support: React.FC<{ light?: boolean }> = ({ light }) => {
                   required
                 ></textarea>
               </div>
-              <button
-                type="submit"
-                className={cn("submit-btn group", light ? "light" : "")}
-              >
-                <span className="flex items-center justify-center gap-1">
-                  Submit
-                  <ArrowRight className="ml-1 h-5 w-5 opacity-0 translate-x-[-4px] transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                </span>
+              <button type="submit" className="submit-btn-fly">
+                <div className="svg-wrapper-1">
+                  <div className="svg-wrapper">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      height="24"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z"></path>
+                      <path
+                        fill="currentColor"
+                        d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+                <span>Submit</span>
               </button>
             </form>
           </div>
