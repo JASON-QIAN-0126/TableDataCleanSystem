@@ -25,4 +25,5 @@ npx cypress run --spec "cypress/e2e/feedback-support.cy.ts"
 npx cypress run --spec "cypress/e2e/file-upload.cy.ts"
 npx cypress run --spec "cypress/e2e/complete-clean-workflow.cy.ts"
 npx cypress run --spec "cypress/e2e/integration.cy.ts"
+npx cypress run --spec "cypress/e2e/user.cy.ts"
 ```

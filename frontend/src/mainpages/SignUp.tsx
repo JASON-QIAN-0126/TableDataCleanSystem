@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import "./SignUp.css";
-import { BorderBeam } from "../components/magicui/border-beam";
 import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
 import { API_BASE_URL } from "../lib/config";
+import { ShineBorder } from "../components/magicui/shine-border";
+import { CustomTooltip } from "../components/Tooltip";
 
 interface SignUpProps {
   light?: boolean;
@@ -72,26 +73,14 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className={`signup-modal ${light ? "light" : ""}`} onClick={(e) => e.stopPropagation()}>
-        <BorderBeam
-          duration={10}
-          size={400}
-          borderWidth={light ? 2.5 : 2.2}
-          className={cn(
-            "from-transparent to-transparent",
-            light ? "via-rose-300" : "via-indigo-400",
-          )}
+        <ShineBorder
+              borderWidth={light ? 2 : 1.5}
+              shineColor={
+                light
+                  ? ["#FFD6E8", "#FFC86B", "#A0E7E5"]
+                  : ["#FF6FD8", "#3813C2", "#45F3FF"]
+              }
         />
-        <BorderBeam
-          duration={10}
-          delay={3}
-          size={400}
-          borderWidth={light ? 2.5 : 2.2}
-          className={cn(
-            "from-transparent to-transparent",
-            light ? "via-sky-300" : "via-fuchsia-400",
-          )}
-        />
-        
         <div className="modal-header">
           <h2 className={`modal-title ${light ? "light" : ""}`}>Sign Up</h2>
           <button className="close-button" onClick={onClose}>×</button>
@@ -107,15 +96,20 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
 
           <div className="form-group">
             <label className={`form-label ${light ? "light" : ""}`}>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className={`form-input ${light ? "light" : ""}`}
-              placeholder="3-20 letters or numbers"
-              required
-              minLength={3}
-            />
+            <CustomTooltip 
+                    tooltipText="Should be 3-20 letters or numbers"
+                    light={light}
+            >
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className={`form-input ${light ? "light" : ""}`}
+                placeholder="Enter your username"
+                required
+                minLength={3}
+              />
+            </CustomTooltip>
           </div>
 
           <div className="form-group">
@@ -132,14 +126,19 @@ const SignUp: React.FC<SignUpProps> = ({ light, onClose, onSwitchToSignIn, onSig
 
           <div className="form-group">
             <label className={`form-label ${light ? "light" : ""}`}>Password</label>
+            <CustomTooltip 
+                    tooltipText="Must contain 6 characters and numbers"
+                    light={light}
+            >
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`form-input ${light ? "light" : ""}`}
-              placeholder="must contain 6 characters and numbers"
+              placeholder="Enter your password"
               required
             />
+            </CustomTooltip>
           </div>
 
           <div className="form-group">

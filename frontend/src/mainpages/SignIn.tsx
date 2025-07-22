@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./SignIn.css";
-import { BorderBeam } from "../components/magicui/border-beam";
 import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
 import { API_BASE_URL } from "../lib/config";
+import { ShineBorder } from "../components/magicui/shine-border";
 
 interface SignInProps {
   light?: boolean;
@@ -54,25 +54,14 @@ const SignIn: React.FC<SignInProps> = ({ light, onClose, onSwitchToSignUp, onSig
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className={`signin-modal ${light ? "light" : ""}`} onClick={(e) => e.stopPropagation()}>
-        <BorderBeam
-          duration={10}
-          size={400}
-          borderWidth={light ? 2.5 : 2.2}
-          className={cn(
-            "from-transparent to-transparent",
-            light ? "via-rose-300" : "via-indigo-400",
-          )}
-        />
-        <BorderBeam
-          duration={10}
-          delay={3}
-          size={400}
-          borderWidth={light ? 2.5 : 2.2}
-          className={cn(
-            "from-transparent to-transparent",
-            light ? "via-sky-300" : "via-fuchsia-400",
-          )}
-        />
+      <ShineBorder
+              borderWidth={light ? 2 : 1.5}
+              shineColor={
+                light
+                  ? ["#FFD6E8", "#FFC86B", "#A0E7E5"]
+                  : ["#FF6FD8", "#3813C2", "#45F3FF"]
+              }
+            />
         
         <div className="modal-header">
           <h2 className={`modal-title ${light ? "light" : ""}`}>Sign In</h2>

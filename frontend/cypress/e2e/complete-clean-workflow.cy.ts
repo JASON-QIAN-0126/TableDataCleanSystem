@@ -69,7 +69,7 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("have.length.at.least", 2);
 
-    cy.contains(".download-button", "Download").click();
+    cy.contains(".download-button1", "Download").click();
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");
     cy.get(".download-section").should("exist");
@@ -115,7 +115,7 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("contain", "John Doe");
 
-    cy.contains(".download-button", "Download").click();
+    cy.contains(".download-button1", "Download").click();
     cy.get(".clean-page3-title").should("have.class", "light");
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");
@@ -158,7 +158,7 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("contain", "John Doe");
 
-    cy.contains(".download-button", "Download").click();
+    cy.contains(".download-button1", "Download").click();
     cy.get(".clean-page3-title").should("be.visible");
   });
 
@@ -180,7 +180,7 @@ describe("Complete Clean Workflow", () => {
     cy.contains("button", "Search").click();
     cy.get("tbody tr").should("have.length.at.least", 1);
 
-    cy.contains(".download-button", "Download").click();
+    cy.contains(".download-button1", "Download").click();
     cy.get(".clean-page3-title").should("be.visible");
     cy.get(".clean-page3-title").should("contain", "Data Cleaning Report");
     cy.get(".summary-section").should("exist");

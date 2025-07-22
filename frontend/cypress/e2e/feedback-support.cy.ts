@@ -52,7 +52,7 @@ describe("Feedback and Support Forms", () => {
       cy.get(".neon-switch").click();
       cy.get(".form-card").should("have.class", "light");
       cy.get(".form-group").should("have.class", "light");
-      cy.get(".submit-btn").should("have.class", "light");
+      cy.get(".submit-btn-fly").should("have.class", "light");
       cy.get('input[type="text"]').type("Test User");
       cy.get('input[type="email"]').type("test@example.com");
       cy.get("textarea").type("Test message in light mode");
@@ -122,7 +122,7 @@ describe("Feedback and Support Forms", () => {
       cy.get(".form-card").should("have.class", "light");
       cy.get(".form-group").should("have.class", "light");
       cy.get(".feel-group").should("have.class", "light");
-      cy.get(".submit-btn").should("have.class", "light");
+      cy.get(".submit-btn-fly").should("have.class", "light");
       cy.get(".feel-label").should("have.class", "light");
       cy.get('label[for="dislike"]').click();
       cy.get('input[type="text"]').type("Test User");
