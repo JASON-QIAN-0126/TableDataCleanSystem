@@ -54,15 +54,14 @@ const SignIn: React.FC<SignInProps> = ({ light, onClose, onSwitchToSignUp, onSig
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className={`signin-modal ${light ? "light" : ""}`} onClick={(e) => e.stopPropagation()}>
-      <ShineBorder
+        <ShineBorder
               borderWidth={light ? 2 : 1.5}
               shineColor={
                 light
                   ? ["#FFD6E8", "#FFC86B", "#A0E7E5"]
                   : ["#FF6FD8", "#3813C2", "#45F3FF"]
               }
-            />
-        
+        />
         <div className="modal-header">
           <h2 className={`modal-title ${light ? "light" : ""}`}>Sign In</h2>
           <button className="close-button" onClick={onClose}>×</button>
