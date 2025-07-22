@@ -1,42 +1,42 @@
 # 🌟 TableDataClean System
 
-> 一个现代化的数据清洗与分析平台，提供直观的UI界面和强大的数据处理能力
+> A modern data cleaning and analysis platform featuring an intuitive UI and powerful processing capabilities.
 
-TableDataClean是一个基于React+Node.js构建的全栈表单数据清洗系统，专为简化数据处理工作流而设计。系统支持多种文件格式的数据导入、智能清洗、可视化分析和结果导出。
+TableDataClean is a full-stack form data cleaning system built with **React** and **Node.js**, designed to streamline the data processing workflow. The system supports importing data in various file formats, intelligent data cleaning, visual analysis, and exporting results.
 
-## 🎨 功能特性
+## 🎨 Features
 
-### UI/UX设计
-- **现代化界面设计** - 采用Linear风格的现代UI设计
-- **深色/浅色主题** - 支持无缝切换的主题模式，适应不同使用场景
-- **响应式设计** - 完全适配桌面端和移动端设备
-- **动画交互** - 流畅的页面过渡和交互动画效果
-- **可视化元素** - 丰富的图标、进度条和数据可视化组件
+### UI/UX Design
+- **Modern Interface Design** - Adopts a *Linear-style* modern UI layout
+- **Dark/Light Theme** - Seamless theme switching for different usage environments
+- **Responsive Design** - Fully adapts to both desktop and mobile devices
+- **Animated Interactions** - Smooth page transitions and interactive animations
+- **Visual Elements** - Rich icons, progress bars, and data visualization components
 
-### 前端功能
-- **用户系统** - 完整的注册、登录、登出功能,用户界面显示清理文件历史记录系统
-- **文件管理** - 支持CSV、TSV、XLSX格式文件上传，容预览和格式验证
-- **智能处理** - 多步骤数据清洗流程可视化
-- **数据搜索** - 实时搜索和高亮显示功能
-- **结果过滤** - 支持隐藏无效邮箱等数据过滤选项
-- **图表分析** - 基于Chart.js的数据完整性和质量分析图表
-- **报告生成** - 自动生成清洗报告和统计信息，处理后数据的导出和下载功能
+### Frontend Features
+- **User System** – Full registration, login, and logout support with a history view of cleaned files
+- **File Management** - Supports uploading and previewing CSV, TSV, and XLSX files with format validation
+- **Smart Processing** - Visualized multi-step data cleaning workflow
+- **Data Search** - Real-time search with keyword highlighting
+- **Result Filtering** - Options to hide invalid email entries and other data filters
+- **Chart Analysis** - Data integrity and quality analysis using Chart.js
+- **Report Generation** - Automatic generation of cleaning reports and statistics, with processed data export and download
 
-### 后端功能
-- **RESTful API** - 标准化的API接口设计
-- **JWT认证** - 基于Token的安全认证机制
-- **数据库管理** - SQLite数据库用户信息存储
-- **错误处理** - 完善的错误捕获和响应机制
-- **⚠️ 核心清理功能（暂未部署）** - 本项目主要作为Demo演示，清洗功能由组员开发，基于Transformer实现字段语义识别，目前未集成进该部署版本。
+### Backend Features
+- **RESTful API** - Standardized API interface design
+- **WT Authentication** - Secure token-based user authentication
+- **Database Management** - SQLite to store user information
+- **Error Handling** - Comprehensive error capturing and response mechanism
+- **⚠️ Core Cleaning Function (Not Deployed)** - This project serves as a demo; the actual cleaning module is developed by team members using Transformer-based semantic field recognition, and is currently not integrated into the deployed version.
 
-### 测试覆盖
-- **端到端测试** - 基于Cypress的完整用户流程测试，文件处理流程的自动化测试，用户系统测试
-- **集成测试** -  核心功能模块的单元测试，前后端集成功能测试
-- **UI测试** - 界面交互和主题切换测试
+Test Coverage
+- **End-to-End Testing** - Full user flow testing using Cypress, including file processing and user authentication
+- **Integration Testing** - Unit testing for core modules and integration testing between frontend and backend
+- **UI Testing** - Interface interaction and theme toggle verification
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-### 前端技术
+### Frontend Technologies
 ```
 React 18 + TypeScript
 Vite
@@ -47,7 +47,7 @@ Lucide React
 Magic UI
 ```
 
-### 后端技术
+### Backend Technologies
 ```
 Node.js + Express
 SQLite3
