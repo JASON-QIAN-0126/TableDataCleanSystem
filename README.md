@@ -29,7 +29,7 @@ TableDataClean is a full-stack form data cleaning system built with **React** an
 - **Error Handling** - Comprehensive error capturing and response mechanism
 - **⚠️ Core Cleaning Function (Not Deployed)** - This project serves as a demo; the actual cleaning module is developed by team members using Transformer-based semantic field recognition, and is currently not integrated into the deployed version.
 
-Test Coverage
+### Test Coverage
 - **End-to-End Testing** - Full user flow testing using Cypress, including file processing and user authentication
 - **Integration Testing** - Unit testing for core modules and integration testing between frontend and backend
 - **UI Testing** - Interface interaction and theme toggle verification
