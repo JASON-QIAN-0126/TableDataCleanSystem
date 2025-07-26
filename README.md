@@ -1,4 +1,4 @@
-# 🌟 TableDataClean System
+# 🌟 TableDataClean System (Frontend Demo)
 
 > A modern data cleaning and analysis platform featuring an intuitive UI and powerful processing capabilities.
 
