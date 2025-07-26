@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 
 interface CustomTooltipProps {
@@ -12,7 +12,71 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
   children,
   light = false,
 }) => {
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLDivElement | null>(null);
+
+  const cleanupTooltip = () => {
+    if (tooltipRef.current) {
+      try {
+        if (document.body.contains(tooltipRef.current)) {
+          document.body.removeChild(tooltipRef.current);
+        }
+      } catch (e) {
+        console.warn("Failed to remove tooltip:", e);
+      }
+      tooltipRef.current = null;
+    }
+
+    if (elementRef.current) {
+      delete (
+        elementRef.current as HTMLSpanElement & {
+          _tooltipElement?: HTMLDivElement;
+        }
+      )._tooltipElement;
+    }
+  };
+
+  const cleanupAllTooltips = () => {
+    const existingTooltips = document.querySelectorAll(".custom-tooltip");
+    existingTooltips.forEach((tooltip) => {
+      try {
+        if (document.body.contains(tooltip)) {
+          document.body.removeChild(tooltip);
+        }
+      } catch (e) {
+        console.warn("Failed to cleanup tooltip:", e);
+      }
+    });
+  };
+
+  useEffect(() => {
+    const handleGlobalInteraction = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (elementRef.current && !elementRef.current.contains(target)) {
+        cleanupTooltip();
+      }
+    };
+
+    const handleScroll = () => {
+      cleanupTooltip();
+    };
+
+    document.addEventListener("mousemove", handleGlobalInteraction);
+    document.addEventListener("click", handleGlobalInteraction);
+    document.addEventListener("scroll", handleScroll, true);
+
+    return () => {
+      document.removeEventListener("mousemove", handleGlobalInteraction);
+      document.removeEventListener("click", handleGlobalInteraction);
+      document.removeEventListener("scroll", handleScroll, true);
+      cleanupTooltip();
+    };
+  }, []);
+
   const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
+    cleanupTooltip();
+    cleanupAllTooltips();
+
     const tooltip = document.createElement("div");
     tooltip.className = "custom-tooltip";
     tooltip.textContent = tooltipText;
@@ -21,9 +85,9 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
     tooltip.style.position = "absolute";
     tooltip.style.top = `${rect.top - 40}px`;
     tooltip.style.left = `${rect.left}px`;
-    tooltip.style.zIndex = "9999";
+    tooltip.style.zIndex = "99999";
     tooltip.style.backgroundColor = light
-      ? "rgba(255, 255, 255, 0.9)"
+      ? "rgba(255, 255, 255, 0.95)"
       : "rgba(108, 100, 255, 0.15)";
     tooltip.style.backdropFilter = "blur(8px)";
     tooltip.style.border = light
@@ -38,19 +102,21 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
     tooltip.style.transition = "opacity 0.2s ease-in-out";
 
     document.body.appendChild(tooltip);
-    (e.currentTarget as any)._tooltipElement = tooltip;
+    tooltipRef.current = tooltip;
+    (
+      e.currentTarget as HTMLElement & { _tooltipElement?: HTMLDivElement }
+    )._tooltipElement = tooltip;
   };
 
-  const handleMouseLeave = (e: React.MouseEvent<HTMLElement>) => {
-    const tooltip = (e.currentTarget as any)._tooltipElement;
-    if (tooltip) {
-      document.body.removeChild(tooltip);
-      delete (e.currentTarget as any)._tooltipElement;
-    }
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      cleanupTooltip();
+    }, 100);
   };
 
   return (
     <span
+      ref={elementRef}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ display: "inline-block" }}

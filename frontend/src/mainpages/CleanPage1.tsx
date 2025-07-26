@@ -7,6 +7,7 @@ import { cn } from "../lib/utils";
 import { InteractiveHoverButton } from "../components/magicui/interactive-hover-button";
 import backgroundImage from "../assets/background_l2.png";
 import { CustomTooltip } from "../components/Tooltip";
+import { KeywordDropdown } from "../components/KeywordDropdown";
 
 interface FileWithId {
   id: string;
@@ -46,14 +47,23 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
         keyword: keywordInput.trim(),
         description: descriptionInput.trim(),
       };
-      setKeywordItems(prev => [...prev, newKeywordItem]);
+      setKeywordItems((prev) => [...prev, newKeywordItem]);
       setKeywordInput("");
       setDescriptionInput("");
     }
   };
 
+  const handleKeywordSelect = (keyword: string, description: string) => {
+    setKeywordInput(keyword);
+    setDescriptionInput(description);
+  };
+
+  const handleKeywordInputChange = (value: string) => {
+    setKeywordInput(value);
+  };
+
   const handleDeleteKeyword = (id: string) => {
-    setKeywordItems(prev => prev.filter(item => item.id !== id));
+    setKeywordItems((prev) => prev.filter((item) => item.id !== id));
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -183,9 +193,9 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
 
     // handle keywords data
     if (keywordItems.length > 0) {
-      const extraArray = keywordItems.map(item => ({
+      const extraArray = keywordItems.map((item) => ({
         name: item.keyword,
-        description: item.description || null
+        description: item.description || null,
       }));
       formData.append("extra", JSON.stringify(extraArray));
     } else {
@@ -396,17 +406,28 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
             <div className={`keywords-section ${light ? "light" : ""}`}>
               {/* keywords table */}
               {keywordItems.length > 0 && (
-                <div className={`keywords-table-container ${light ? "light" : ""}`}>
-                  <div className={`keywords-table-header ${light ? "light" : ""}`}>
+                <div
+                  className={`keywords-table-container ${light ? "light" : ""}`}
+                >
+                  <div
+                    className={`keywords-table-header ${light ? "light" : ""}`}
+                  >
                     <span>Keyword</span>
                     <span>Description (optional)</span>
                     <span>Action</span>
                   </div>
-                  <div className={`keywords-table-body ${light ? "light" : ""}`}>
+                  <div
+                    className={`keywords-table-body ${light ? "light" : ""}`}
+                  >
                     {keywordItems.map((item) => (
-                      <div key={item.id} className={`keyword-row ${light ? "light" : ""}`}>
+                      <div
+                        key={item.id}
+                        className={`keyword-row ${light ? "light" : ""}`}
+                      >
                         <span className="keyword-cell">{item.keyword}</span>
-                        <span className="description-cell">{item.description || "-"}</span>
+                        <span className="description-cell">
+                          {item.description || "-"}
+                        </span>
                         <div className="action-cell">
                           <button
                             className={`action-btn-1 delete-btn-1 ${light ? "light" : ""}`}
@@ -423,17 +444,20 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
 
               <div className="keywords-input-area">
                 <div className="input-row">
-                  <CustomTooltip 
+                  <CustomTooltip
                     tooltipText="You don't need to enter 'name', 'email', 'organization' or 'role' — they are extracted by default."
                     light={light}
                   >
-                    <input
-                      type="text"
-                      placeholder="Add custom keywords"
-                      className={`keyword-input ${light ? "light" : ""}`}
+                    <KeywordDropdown
                       value={keywordInput}
-                      onChange={(e) => setKeywordInput(e.target.value)}
-                      onKeyPress={(e) => e.key === 'Enter' && handleAddKeyword()}
+                      onSelect={handleKeywordSelect}
+                      onChange={handleKeywordInputChange}
+                      onKeyPress={(e) =>
+                        e.key === "Enter" && handleAddKeyword()
+                      }
+                      placeholder="Add custom keywords"
+                      className=""
+                      light={light}
                     />
                   </CustomTooltip>
                   <input
@@ -442,7 +466,7 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
                     className={`description-input ${light ? "light" : ""}`}
                     value={descriptionInput}
                     onChange={(e) => setDescriptionInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && handleAddKeyword()}
+                    onKeyPress={(e) => e.key === "Enter" && handleAddKeyword()}
                   />
                   <button
                     className={`add-keyword-btn ${light ? "light" : ""}`}
@@ -460,8 +484,10 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
               <div className="footer-controls">
                 <div className="enhance-section">
                   <div className="checkbox-container-enhance">
-                    <label className={`checkbox-label-enhance ${light ? "light" : ""}`}>
-                      <CustomTooltip 
+                    <label
+                      className={`checkbox-label-enhance ${light ? "light" : ""}`}
+                    >
+                      <CustomTooltip
                         tooltipText="If checked, cleaning will take longer time."
                         light={light}
                       >
@@ -472,11 +498,11 @@ const CleanPage1: React.FC<{ light?: boolean }> = ({ light }) => {
                           className={`checkbox-input-enhance ${light ? "light" : ""}`}
                         />
                       </CustomTooltip>
-                      <CustomTooltip 
+                      <CustomTooltip
                         tooltipText="If checked, cleaning will take longer time."
                         light={light}
                       >
-                        <span 
+                        <span
                           className={`checkbox-text-enhance ${light ? "light" : ""}`}
                         >
                           Enable enhanced cleaning model

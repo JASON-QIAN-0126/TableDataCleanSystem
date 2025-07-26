@@ -1,0 +1,98 @@
+.keyword-dropdown-container {
+  position: relative;
+  width: 100%;
+  max-height: 50px;
+}
+
+.keyword-dropdown-container .keyword-input {
+  flex: 1;
+  background-color: #3a3a3c;
+  border: 1px solid #5a5a5e;
+  border-radius: 8px;
+  padding: 5px 10px;
+  color: white;
+  font-size: 14px;
+  min-width: 0;
+  width: 100%;
+}
+
+.keyword-dropdown-container .keyword-input.light {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ccc;
+  color: #333;
+}
+
+.keyword-dropdown-container .keyword-input::placeholder {
+  color: #8a8a8e;
+}
+
+.keyword-dropdown-container .keyword-input.light::placeholder {
+  color: #999;
+}
+
+.keyword-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(30, 35, 41, 0.95);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  margin-top: 2px;
+  max-height: 120px;
+  overflow-y: auto;
+}
+
+.keyword-dropdown.light {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(237, 215, 225, 0.477);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(75, 85, 99, 0.15);
+  transition: all 0.15s ease;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option:hover {
+  background: rgba(99, 102, 241, 0.12);
+  border-left: 2px solid rgba(99, 102, 241, 0.6);
+  padding-left: 10px;
+}
+
+.dropdown-option.light:hover {
+  background: rgba(240, 240, 240, 0.8);
+  border-left: 2px solid rgba(180, 180, 180, 0.9);
+}
+
+.option-keyword {
+  font-weight: 500;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.option-keyword.light,
+.dropdown-option.light .option-keyword {
+  color: #1f2937;
+}
+
+.dropdown-no-results {
+  padding: 12px;
+  text-align: center;
+  color: rgba(156, 163, 175, 0.7);
+  font-size: 12px;
+  font-style: italic;
+}
+
+.dropdown-no-results.light {
+  color: rgba(107, 114, 128, 0.7);
+}
